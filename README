@@ -1,0 +1,13 @@
+WinesAlike is a PHP script for deploying wine affinity websites.
+
+It follows a "Model-View-Controller" architectural style where data models (together with business rules) are separated from information presentation (views) and user interaction (controllers).
+
+Our models are representd by PHP classes in the folder models.
+
+Data from this models are queried by PHP scripts and rendered using Smarty templates contained in the folder templates. There are also scripts rendering data as JSON objects.
+
+Templates contain also forms and buttons that call PHP scripts that process this input and invoke the proper scripts.
+
+INSTALLATION
+
+The script install.php creates all the MySQL tables containing the model data.
