@@ -67,7 +67,7 @@ class Wine
             AND region=?
             AND vintage_year=?"))
         {
-        	$stmt->bind_param( 'sssi', $wine_name, $producer_id, $region, $vintage_year );
+        	$stmt->bind_param( 'siss', $wine_name, $producer_id, $region, $vintage_year );
 			$stmt->execute();
 			$stmt->bind_result(
 				$this->wine_id, 

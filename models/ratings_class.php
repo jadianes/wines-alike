@@ -47,7 +47,7 @@ class Ratings {
 		{ // New region, add it
 			$region->region_name = $region_name;
 			if ( !($region->save()) ) throw new Exception('Could not add Region to DB.');
-		}
+		} 
 		
 		// find or add producer
 		$producer = new Producer();
@@ -60,15 +60,14 @@ class Ratings {
 		
 		if ( $wine->load($wine_name,$producer->producer_id,$region->region_name,$vintage_year) ) 
 		// wine exists, recalculate avge. rating
-		{ 
+		{
 			// add new rating or update if user already rated this wine
 			$wine_id = $wine->wine_id;
 			$user_id = $user->user_id;
 			$rating = new Rating();
-			
 			if ( $rating->load( $wine_id, $user_id ) )
 			{ // User already rated this wine, update
-				$old_avg = $wine->avg_rating;
+			    $old_avg = $wine->avg_rating;
 				$old_rating = $rating->rating;
 				$num_ratings = $wine->num_ratings;
 				$rating->rating = $new_rating;
@@ -85,7 +84,8 @@ class Ratings {
 			{ // Not rated before, add rating...
 				$old_avg = $wine->avg_rating;
 				$num_ratings = $wine->num_ratings;
-				$rating->$user_id = $user_id;
+				$rating->wine_id = $wine_id;
+				$rating->user_id = $user_id;
 				$rating->rating = $new_rating;
 	   
 				if ( !$rating->save() )
