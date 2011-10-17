@@ -141,11 +141,10 @@ class Ratings {
 	}
  	
 	function find_suggestions($email)
+	// We will provide semi intelligent recomendations to people
+	// If they have given similar ratings to coincident wines its likely
+	// that they will agree in other unrated (by one of them) wines as well  
 	{
-		// We will provide semi intelligent recomendations to people
-		// If they have given similar ratings to coincident wines its likely
-		// that they will agree in other unrated (by one of them) wines as well 
-		  
 		// First, get all the wines rated by this user
 		$all_wines = $this->conn->query("
 					SELECT ratings.wine_id
@@ -163,12 +162,15 @@ class Ratings {
 				FROM users, ratings
 				WHERE ratings.wine_id='$wineid' AND users.email!='$email' AND ratings.user_id=users.user_id
 			");
-			if ($user_ratings && $user_ratings->num_rows>0) {
+			if ($user_ratings && $user_ratings->num_rows>0) 
+			{
 				// Update discrepances with user ratings against this user rating
-				for ($j = 1; $rating = $user_ratings->fetch_object(); ++$j) {
+				for ($j = 1; $rating = $user_ratings->fetch_object(); ++$j) 
+				{
 				//	echo ("        Calculating discrepances with user "+$rating->user_id);
 					$indexvar = $rating->user_id;
-					if (!$discrepances[$indexvar]) {
+					if (!$discrepances[$indexvar]) 
+					{
 						$discrepances[$indexvar] = 0;
 						$num_comps[$indexvar] = 0;
 					}
@@ -179,36 +181,46 @@ class Ratings {
 		}
 		if ( $discrepances != NULL )
 		{ 
-		foreach ($discrepances as $affine_user_id => $discrepance) {
-			$discrepances[$affine_user_id] = ($discrepance/$num_comps[$affine_user_id]) - 2*$num_comps[$affine_user_id];
-		}
-		asort($discrepances);
-		// ...now we have an array with the most affine users of this user (most affine in the first place)
+		    foreach ($discrepances as $affine_user_id => $discrepance) 
+		    {
+			    $discrepances[$affine_user_id] = ($discrepance/$num_comps[$affine_user_id]) - 2*$num_comps[$affine_user_id];
+		    }
+		    asort($discrepances);
+		    // ...now we have an array with the most affine users of this user (most affine in the first place)
 		
-		// Third, build a suggestions list taking those wines from less discrepant users
-		// not rated by this user
-		$suggestions = array();
-		foreach ($discrepances as $affine_user_id => $discrepance) {
-			// for each user, look for its highest rated wines not rated by this user
-			$suggestions_result = $conn->query("
-							   SELECT producers.producer_name, wines.wine_name, wines.vintage_year, wines.region, wines.avg_rating, wines.num_ratings, ratings.rating
+		    // Third, build a suggestions list taking those wines from less discrepant users
+		    // not rated by this user
+		    $suggestions = array();
+		    foreach ($discrepances as $affine_user_id => $discrepance)
+		    {
+			    // for each user, look for its highest rated wines not rated by this user
+			    $suggestions_result = $this->conn->query("
+							   SELECT producers.producer_name, wines.wine_name, wines.vintage_year, wines.region, wines.avg_rating, wines.num_ratings, ratings.rating, users.email
 							   FROM users, producers, wines, ratings
-							   WHERE producers.wine_id=ratings.wine_id AND ratings.user_id='$affine_user_id' AND ratings.wine_id=wines.wine_id
-								AND ratings.wine_id != ALL (
+							   WHERE users.user_id='$affine_user_id'
+							    AND ratings.user_id=users.user_id
+							    AND ratings.wine_id NOT IN (
 									SELECT ratings.wine_id FROM users, ratings
-									WHERE users.email='$username' AND users.user_id=ratings.user_id
+									WHERE users.email='$email' AND users.user_id=ratings.user_id
 								)
-							   
+								AND ratings.wine_id=wines.wine_id 
+							    AND producers.producer_id=wines.producer_id
 							   ORDER BY ratings.rating
 							   LIMIT 0, 20
-			");		
+			    ");		
 			
-			if ($suggestions_result && $suggestions_result->num_rows>0) 
-				for ($count = count($suggestions)+1; $new_suggestion = $suggestions_result->fetch_object(); ++$count) 
-				{
-					$suggestions[$count] = $new_suggestion;
+			    if ($suggestions_result && $suggestions_result->num_rows>0) 
+			    {
+				    for ($count = count($suggestions); $new_suggestion = $suggestions_result->fetch_object(); ++$count) 
+				    {
+					    $suggestions[$count] = $new_suggestion;
+				    }
 				}
-		}  
+				else
+				{
+				
+				}
+		    }  
         }
 		return $suggestions;
 	}
