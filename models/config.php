@@ -1,12 +1,12 @@
 <?php
 
 define('DB_HOST', 'localhost');
-define('DB_USER', 'jadianes_walike');
-define('DB_PASSWORD','WinesAlike#321');
-define('DB_NAME', 'jadianes_winesalike');
+define('DB_USER', '');
+define('DB_PASSWORD','');
+define('DB_NAME', '');
 
-define('WA_ADMIN_NAME', 'Jose A.');
-define('WA_ADMIN_EMAIL', 'jadianes@gmail.com');
-define('WA_SUPPORT_EMAIL', 'support@winesalike.com');
+define('WA_ADMIN_NAME', '');
+define('WA_ADMIN_EMAIL', '');
+define('WA_SUPPORT_EMAIL', '');
 
 ?>
