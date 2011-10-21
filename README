@@ -8,6 +8,8 @@ Data from this models are queried by PHP scripts and rendered using Smarty templ
 
 Templates contain also forms and buttons that call PHP scripts that process this input and invoke the proper scripts.
 
+Therefore, excepting for JSON retrieved data, the 'templates' folder defines how to render data from the model (views). The scripts that manage user requests and query models (i.e. the controllers) are in the root folder. These scripts use the appropriate views in the 'templates' folder to represent the data. Views are styled using CSS definitions included in folder 'css'.
+
 INSTALLATION
 
 The script install.php creates all the MySQL tables containing the model data. This script uses the configuration parameters defined in 'models/config.php'.

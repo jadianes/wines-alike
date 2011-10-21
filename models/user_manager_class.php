@@ -8,7 +8,7 @@ require_once('config.php');
 
 function send_welcome_email($username, $email) 
 {
-    $from = "From: support@winesalike.com \r\n";
+    $from = "From: ".WA_SUPPORT_EMAIL." \r\n";
     $mesg = "Dear $username,\r\n\r\n Welcome to WinesAlike. We are really happy to have you in our community.\r\n"
               ."Please, start telling us what you like. Go and login with your username ('$username') and password here: \r\n"
 			  ."http://www.winesalike.com \r\n\r\n"
@@ -23,10 +23,10 @@ function send_welcome_email($username, $email)
   
 function send_admin_email($username, $email) 
 {
-    $from = "From: support@winesalike.com \r\n";
-    $mesg = "Dear Admin,\r\n\r\n The user $username <$email> just registered in the system.\r\n"
+    $from = "From: ".WA_SUPPORT_EMAIL." \r\n";
+    $mesg = "Dear ".WA_ADMIN_NAME.",\r\n\r\n The user $username <$email> just registered in the system.\r\n"
 			  ."The WinesAlike team.";
-      if (mail($email, 'New WinesAlike user', $mesg, $from))
+      if (mail(WA_ADMIN_EMAIL, 'New WinesAlike user', $mesg, $from))
         return true;      
       else
         throw new Exception('Could not send email.');
@@ -38,12 +38,14 @@ class UserManager
 
   var $database;
 
-  function __construct() {
+  function __construct() 
+  {
     session_start();
     $this->database = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
   }
 
-  function __destruct() {
+  function __destruct() 
+  {
   	$this->database->close();
   }
   
@@ -53,15 +55,19 @@ class UserManager
   {
     // check if username is unique
     $stmt = $this->database->stmt_init();
-    if ($stmt->prepare("SELECT * FROM users WHERE email=?")) {
+    if ($stmt->prepare("SELECT * FROM users WHERE email=?")) 
+	{
 		$stmt->bind_param( 's', $email ); 
 		$stmt->execute();
 		$stmt->store_result();
-    	if ( $stmt->num_rows > 0 ) {
+    	if ( $stmt->num_rows > 0 ) 
+		{
     		$stmt->close();
       		throw new Exception('That email is registered - go back and choose another one.');
       	}
-	} else {
+	} 
+	else 
+	{
       throw new Exception('Could not execute query');    	
 	}
 
@@ -78,7 +84,9 @@ class UserManager
     	send_welcome_email($username, $email);
 		send_admin_email($username, $email);
 		$stmt->close();
-    } else {
+    } 
+	else 
+	{
     	$stmt->close();
     	throw new Exception('Could not register you in database - please try again later.');
     }
@@ -104,7 +112,9 @@ class UserManager
       		return true;
     	else 
       		throw new Exception('Could not log you in.');
-    } else {
+    } 
+	else 
+	{
         throw new Exception('Could not log you in.');
     }
   }

@@ -1,8 +1,12 @@
 <?php
 
-define('DB_HOST', 'localhost'); // typically localhost
-define('DB_USER', '<your_db_user>');
-define('DB_PASSWORD','<your_db_password>');
-define('DB_NAME', '<your_db_name>'); 
+define('DB_HOST', 'localhost');
+define('DB_USER', 'jadianes_walike');
+define('DB_PASSWORD','WinesAlike#321');
+define('DB_NAME', 'jadianes_winesalike');
+
+define('WA_ADMIN_NAME', 'Jose A.');
+define('WA_ADMIN_EMAIL', 'jadianes@gmail.com');
+define('WA_SUPPORT_EMAIL', 'support@winesalike.com');
 
 ?>
