@@ -3,23 +3,55 @@
 {extends file="member.tpl"}
 
 {block name="content"}
-<form id='add_rating_form' class="user_forms" action='add_ratings.php' method='post'>
-<table>
-	<tr><td>Wine name</td><td><input type='text' name='wine_name'  value="" size=30 maxlength=255></td></tr>
-	<tr><td>Vintage year</td><td><input type='text' name='vintage_year'  value="" size=30 maxlength=255></td></tr>
-	<tr><td>Region</td><td><input type='text' name='region'  value="" size=30 maxlength=255></td></tr>
-	<tr><td>Winemaker</td><td><input type='text' name='producer'  value="" size=30 maxlength=255></td></tr>
-	<tr><td>Your rating </td><td id="add_rating_your_rating">
-		<select name="rating">
-		 	<option value="1">Don't like it</option>
-		 	<option value="2">Enjoyable</option>
-		 	<option value="3">Nice one</option>
-		 	<option value="4">Love it!</option>
-		 	<option value="5">Religious experience...</option>
-		</select>
-	</td></tr>		 
-<!--	<tr><td>Wine rating:</td><td><input type='text' name='rating'  value="" size=30 maxlength=255></td></tr>-->
-	<tr><td colspan=2><input type='submit' value='Add rating'></td></tr>
-</table>
+<form id='add_rating_form' action='add_ratings.php' method='post'>
+	<fieldset>
+		<legend>Add new rating</legend>
+		
+		<div class="clearfix">
+		    <label for="region">Region</label>
+		    <div class="input">
+		    <input class="xlarge" name="region" size="30" maxlength="255" type="text" />
+		    </div>
+		</div><!-- /clearfix -->
+		
+		<div class="clearfix">
+		    <label for="producer">Winemaker</label>
+		    <div class="input">
+		    <input class="xlarge" name="producer" size="30" maxlength="255" type="text" />
+		    </div>
+		</div><!-- /clearfix -->
+		
+		<div class="clearfix">
+		    <label for="wine_name">Wine name</label>
+		    <div class="input">
+		    <input class="xlarge" name="wine_name" size="30" maxlength="255" type="text" />
+		    </div>
+		</div><!-- /clearfix -->		
+
+		<div class="clearfix">
+		    <label for="vintage_year">Vintage year</label>
+		    <div class="input">
+		    <input class="xlarge" name="vintage_year" value="" size="30" maxlength="255" type="text" />
+		    </div>
+		</div><!-- /clearfix -->
+			
+		<div class="clearfix">
+		    <label for="rating">Your rating</label>
+		    <div class="input">
+				<select name="rating">
+				 	<option value="1">Don't like it</option>
+				 	<option value="2">Enjoyable</option>
+				 	<option value="3">Nice one</option>
+				 	<option value="4">Love it!</option>
+				 	<option value="5">Religious experience...</option>
+				</select>
+		    </div>
+		</div><!-- /clearfix -->
+
+		<div class="actions">
+				<input  class="btn primary" type='submit' value='Add rating'>
+		</div>
+    
+    </fieldset>
 </form>
 {/block}

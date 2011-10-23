@@ -3,17 +3,35 @@
 {extends file="member.tpl"}
 
 {block name="content"}
-<div id="main_view">
-<div id="ratings_title">{$ratings_title}</div>
+
+<!-- User stats here -->
+<div class="row">
+  <div class="hero-unit">
+    <h3>Some insight about your taste...</h3>
+      <li><a href="statistics.php">my taste</a></li>
+  </div>
+</div>
+
+	
+<h3>{$ratings_title}</h3>
+<hr>
+<div class="row">
 {foreach $ratings as $rating}
-<div class="wine-rating">
-  <h3>{$rating->producer_name}, {$rating->wine_name} {$rating->vintage_year}</h3>
+  {if $rating@iteration is div by 5}
+  </div>
+  <hr>
+  <div class="row">
+  {/if}
+  <span class="span4">
+  <h4>{$rating->producer_name}, {$rating->wine_name} {$rating->vintage_year}</h4>
   <p>{$rating->region}</p>
   <p>Average rating: {$rating->avg_rating} ({$rating->num_ratings} ratings)</p>
   <p>Your rating 
-{html_options name='your_rating$rating@index' options=$rating_options selected=$rating->rating}</p>
-
-</div>
+  {html_options name='your_rating$rating@index' options=$rating_options selected=$rating->rating}</p>
+  </span>
 {/foreach}
 </div>
+
+<hr>
+
 {/block}

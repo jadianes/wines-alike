@@ -1,4 +1,5 @@
 <?php
+  require('models/config.php');
   require('Smarty.class.php');
   $smarty = new Smarty();
   // include function files for this application
@@ -10,14 +11,13 @@
   $email=$_POST['email'];
   $username=$_POST['username'];
   $passwd=$_POST['passwd'];
-  $passwd2=$_POST['passwd2'];
 
   try
   {
     // check forms filled in
     if (!filled_out($_POST))
     {
-      	$smarty->assign('title', 'WinesAlike');
+      	$smarty->assign('sitename', WA_WEBSITE_NAME);
     	$smarty->assign('slogan', 'Trust your taste');
 	    $smarty->assign('message', 'You have not filled the form out correctly - please go back and try again.');
 	    $smarty->display('system_message.tpl');
@@ -27,29 +27,19 @@
     // email address not valid
     if (!valid_email($email))
     {
-      	$smarty->assign('title', 'WinesAlike');
+      	$smarty->assign('sitename', WA_WEBSITE_NAME);
     	$smarty->assign('slogan', 'Trust your taste');
 	    $smarty->assign('message', 'That is not a valid email address.  Please go back and try again.');
 	    $smarty->display('system_message.tpl');
 		exit;
     } 
 
-    // passwords not the same 
-    if ($passwd != $passwd2)
-    {
-      	$smarty->assign('title', 'WinesAlike');
-    	$smarty->assign('slogan', 'Trust your taste');
-	    $smarty->assign('message', 'The passwords you entered do not match - please go back and try again.');
-	    $smarty->display('system_message.tpl');
-		exit;
-    }
-
     // check password length is ok
     // ok if username truncates, but passwords will get
     // munged if they are too long.
     if (strlen($passwd)<6 || strlen($passwd) >16)
     {
-      	$smarty->assign('title', 'WinesAlike');
+      	$smarty->assign('sitename', WA_WEBSITE_NAME);
     	$smarty->assign('slogan', 'Trust your taste');
 	    $smarty->assign('message', 'Your password must be between 6 and 16 characters. Please go back and try again.');
 	    $smarty->display('system_message.tpl');
@@ -63,14 +53,14 @@
 	$user_manager->register_valid_user($email);    
 	
     // provide link to members page
-	$smarty->assign('title', 'WinesAlike');
+	$smarty->assign('sitename', WA_WEBSITE_NAME);
 	$smarty->assign('slogan', 'Trust your taste');
 	$smarty->assign('message', 'Your registration was successful.  Go to the <a href="latest_ratings_html.php">members</a> page to start rating wines!');
 	$smarty->display('system_message.tpl');
 }
 catch (Exception $e)
 {
-    $smarty->assign('title', 'WinesAlike');
+    $smarty->assign('sitename', WA_WEBSITE_NAME);
     $smarty->assign('slogan', 'Trust your taste');
 	$smarty->assign('message', 'Sorry, could not register. Please go back and try again.');
 	$smarty->display('system_message.tpl');

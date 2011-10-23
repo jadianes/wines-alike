@@ -229,14 +229,15 @@ class Ratings {
 	 * Get latest ratings excluding ratings of a specific $username
 	 * if defined
 	 */
-	function get_latest_ratings($email) {
+	function get_latest_ratings($email,$count) {
+		if ( ! isset($count) ) $count = 12;
 		if ( isset($email) && ($email != '') ) {
 			$query = "
 				SELECT producers.producer_name, wines.wine_name, wines.vintage_year, wines.region, wines.avg_rating, wines.num_ratings, ratings.rating
 				FROM producers, users, wines, ratings
 				WHERE producers.producer_id=wines.producer_id AND users.email='$email' AND ratings.user_id!=users.user_id AND ratings.wine_id=wines.wine_id
 				ORDER BY ratings.rating_date DESC
-				LIMIT 0, 20
+				LIMIT 0, $count
 			";
 			$result = $this->conn->query( $query );
 		} else {
@@ -245,7 +246,7 @@ class Ratings {
 				FROM producers, users, wines, ratings
 				WHERE producers.producer_id=wines.producer_id AND users.user_id=ratings.user_id AND ratings.wine_id=wines.wine_id
 				ORDER BY ratings.rating_date DESC
-				LIMIT 0, 20
+				LIMIT 0, $count
 			";
 			$result = $this->conn->query( $query );
 		}

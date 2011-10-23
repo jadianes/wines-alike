@@ -1,4 +1,5 @@
 <?php
+require_once('models/config.php');
 require_once('models/user_manager_class.php');
 require_once('Smarty.class.php');
 require_once('models/ratings_class.php');

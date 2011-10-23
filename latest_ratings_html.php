@@ -1,6 +1,7 @@
 <?php
 require_once('Smarty.class.php');
 require_once('models/user_manager_class.php'); 
+require_once('models/config.php');
 require_once('models/ratings_class.php');
 require_once('template_fns.php');
 
@@ -21,7 +22,7 @@ if ($email && $passwd)
     $user_manager->register_valid_user($email);
   }
   catch(Exception $e) {
-	$smarty->assign('title', 'WinesAlike');
+	$smarty->assign('sitename', WA_WEBSITE_NAME);
 	$smarty->assign('slogan', 'Trust your taste');
 	$smarty->assign('message', 'Sorry, it was impossible to log you in. '+$e->getMessage());
 	$smarty->display('system_message.tpl');

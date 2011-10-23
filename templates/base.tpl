@@ -3,33 +3,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {block name="header"}{/block}
+    {block name="head"}{/block}
 </head>
 
 <body>
-     <div id="container">
-	    <div id="heading">
-		    {include file="logo.tpl"}
-	    	{block name="heading"}{/block}
-	    </div>
-	    
-        <div id="sidebar">
-            {block name="sidebar"}{/block}            		
-        </div>
-		
-        <div id="content">
+	<div class="topbar" data-dropdown="dropdown" >
+		<div class="topbar-inner">
+			<div class="container">
+				<h3><a href="latest_ratings_html.php">{$sitename}</a></h3>
+				{block name="header"}{/block}
+			</div>
+		</div>
+	</div>
+
+    <div class="container">
+        <div class="content">
             {block name="content"}{/block}
+			<div id="footer">
+				{block name="footer"}{/block}
+			</div>
 	    </div>
-
-        <div id="adds">
-		    {block name="adds"}
-			  {include file="adds.tpl"} 
-			{/block} 
-		</div> 
-
-        <div id="footer">
-            {block name="footer"}{/block}
-        </div>
-    </div>
+	</div>
+	
 </body>
 </html>

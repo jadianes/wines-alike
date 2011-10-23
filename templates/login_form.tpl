@@ -1,14 +1,8 @@
 {* Smarty *}
 
-<div class="user_forms">
-	<form class="user_forms" method='post' action='index.php'>
-		<p>email
-		<input type='text' name='email'></p>
-		<p>Password
-		<input type='password' name='passwd'></p>
-		<input id='login_button' type='submit' value='Log in'>
+	<form class="pull-left" method='post' action='index.php'>
+        <input class="mini" name="email" size="25" type="text" placeholder="email" />
+		<input class="mini" name="passwd" size="25" type="password" placeholder="password" />
+		<input  class="btn primary" type='submit' value='Sign in'>
 	</form>
-	</br>
-	<div class="bold_link"><a href='register.php'>Not a member?</a></div>
-	<a href='forgot_password.php'>Forgot your password?</a>
-</div>
+	<p><a href='forgot_password.php'>Forgot your password?</a></p>

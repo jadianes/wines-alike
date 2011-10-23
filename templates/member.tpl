@@ -2,16 +2,11 @@
 
 {extends file="index.tpl"}
 
-{block name="heading"}
-	{* include file="logo.tpl" *}
+{block name="header"}
+    {include file="action_menu.tpl"}
 	{include file="user_menu.tpl"}
 {/block}
 
-{block name="sidebar"}
-    {include file="action_menu.tpl"}	
-{/block}
-	
 {block name="content"} 
-	<div id='main_view'>
-	</div>
+
 {/block}

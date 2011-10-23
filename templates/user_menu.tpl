@@ -1,8 +1,9 @@
 {* Smarty *}
 
-<div id='user_menu'>
-		<a id="my_account" class="user_menu_link" href="my_account.php">Hello {$username}</a>
-		<a id="my_taste" class="user_menu_link" href="statistics.php">my taste</a>
-		<a id='change_passwd' class="user_menu_link" href='change_passwd_form.php'>change password</a>
-		<a id='logout' class="user_menu_link" href='logout.php'>logout</a>
-</div>
+<ul class="nav secondary-nav">
+		<li><a href="my_account.php">{$username}</a></li>
+		<li><a href='statistics.php'>my taste</a></li>
+		<li><a href='change_passwd_form.php'>change password</a></li>
+		<li><a href='logout.php'>logout</a></li>
+</ul>
+
