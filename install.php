@@ -1,6 +1,5 @@
 <?php
 
-require_once('Smarty.class.php');
 require_once('models/config.php');
 
 function create_database() 
@@ -88,11 +87,11 @@ function create_database()
 	$mysqli->close();
 }
 
-$smarty = new Smarty();
+$smarty = new Smarty_WinesAlike();
 $smarty->assign('version','0.1b');
 
 if (create_database()) {
-	$smarty->assign('message','WinesAlike installation succesfull.');
+	$smarty->assign('message','WinesAlike installation successful.');
 } else {
 	$smarty->assign('message','WinesAlike installation errors...');
 }

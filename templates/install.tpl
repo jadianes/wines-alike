@@ -1,15 +1,9 @@
-{*Smart*}
-
-{extends file="base.tpl"}
+{* Smarty *}
 
 {block name="heading"}
-<h2>Installer v{$version}</h2>
+<h2>WinesAlike Installer v{$version}</h2>
 {/block}
 
 {block name="content"}
 <p>{$message}</p>
-{/block}
-
-{block name="adds"}
-
 {/block}
