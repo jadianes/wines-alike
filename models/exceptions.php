@@ -8,4 +8,13 @@ class DBException extends Exception
   }
 }
 
+class DataValueException extends Exception
+{
+  function display()
+  {
+    echo "DataValueException: $this->message";
+  }
+}
+
+
 ?>

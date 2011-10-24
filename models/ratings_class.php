@@ -6,14 +6,15 @@
  * Author: Jose A. Dianes
  * 
  */
-require_once('db_fns.php');
+require_once('exceptions.php');
 require_once('wine_class.php');
 require_once('rating_class.php');
 require_once('user_class.php');
 require_once('region_class.php');
 require_once('producer_class.php');
 
-class Ratings {
+class Ratings 
+{
 	
 	/* database connection */
 	var $conn;
@@ -21,6 +22,9 @@ class Ratings {
 	function __construct() 
 	{
 		$this->conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if ($mysqli->connect_error) {
+		    throw new DBException("Ratings DB error");
+		}
 	}
 
 	function __destruct()
@@ -39,21 +43,21 @@ class Ratings {
 	 */ 
 	{
 		$user = new User();
-		if ( !$user->load($email) ) throw new Exception('Wrong user email');
+		if ( !$user->load($email) ) throw new DataValueException('Wrong user email');
 		
 		// find or add region
 		$region = new Region();
 		if ( !($region->load($region_name)) ) 
 		{ // New region, add it
 			$region->region_name = $region_name;
-			if ( !($region->save()) ) throw new Exception('Could not add Region to DB.');
+			if ( !($region->save()) ) throw new DBException('Could not add Region to DB.');
 		} 
 		
 		// find or add producer
 		$producer = new Producer();
 		if ( !($producer->load($producer_name)) ) { // Add it
 			$producer->producer_name = $producer_name;
-			if ( !($producer->save()) ) throw new Exception('Could not add Producer to DB.');
+			if ( !($producer->save()) ) throw new DBException('Could not add Producer to DB.');
 		}
 		
 		$wine = new Wine();
@@ -73,7 +77,7 @@ class Ratings {
 				$rating->rating = $new_rating;
 				if ( !$rating->save() )
 			 	{
-					throw new Exception('Rating could not be updated.');
+					throw new DBException('Rating could not be updated.');
 				} 
 				else 
 				{
@@ -90,7 +94,7 @@ class Ratings {
 	   
 				if ( !$rating->save() )
 				{
-					throw new Exception('New rating could not be added.');
+					throw new DBException('New rating could not be added.');
 				} 
 				else 
 				{
@@ -113,14 +117,14 @@ class Ratings {
 			$wine->producer_id = $producer->producer_id;
 			$wine->avg_rating = $new_rating;
 			$wine->num_ratings = 1;
-			if ( !($wine->save()) ) throw new Exception('Could not add new wine to DB.');
+			if ( !($wine->save()) ) throw new DBException('Could not add new wine to DB.');
 			
         	// add new rating
         	$rating = new Rating();
         	$rating->wine_id = $wine->wine_id;
         	$rating->user_id = $user->user_id;
         	$rating->rating = $new_rating;
-        	if ( !($rating->save()) ) throw new Exception('Could not add new Rating to DB.');
+        	if ( !($rating->save()) ) throw new DBException('Could not add new Rating to DB.');
 		}
 		return true;	
 	}
@@ -135,7 +139,7 @@ class Ratings {
 			DELETE FROM !
 			WHERE username=? and wine_id=?',
 			array ( 'ratings', $username, $rating['wine_id'] ))) {
-    		throw new Exception('Rating could not be deleted');
+    		throw new DBException('Rating could not be deleted');
     	}
     	return true;
 	}
