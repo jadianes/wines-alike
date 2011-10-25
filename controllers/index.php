@@ -1,7 +1,7 @@
 <?php
 
 require_once ( dirname(__FILE__).'/../models/config.php');
-$smarty = new Smarty_WinesAlike();
+
 
 /**
  * Index controller
@@ -20,6 +20,7 @@ class Index implements IController
 	 **/
 	public function index()
 	{
+		$smarty = new Smarty_WinesAlike();
 		$smarty->assign('sitename', WA_WEBSITE_NAME);
 		$smarty->display('test.tpl');
 	}
