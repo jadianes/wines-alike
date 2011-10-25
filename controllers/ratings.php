@@ -10,7 +10,7 @@ require_once(dirname(__FILE__).'/../template_fns.php');
  * @package controllers
  * @author Jose A Dianes
  **/
-class IndexController implements IController 
+class ratings implements IController 
 {
 
 	/**
