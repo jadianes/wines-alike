@@ -40,7 +40,7 @@ class FrontController
 		$request = $_SERVER['REQUEST_URI'];
 		
 		$splits = explode('/', trim($request,'/'));
-		$this->_controller = !empty($splits[0])?$splits[0]:'index';
+		$this->_controller = !empty($splits[0])?$splits[0]:'Index';
 		$this->_action = !empty($splits[1])?$splits[1]:'index';
 		if ( !empty($splits[2]) ) 
 		{
@@ -80,6 +80,7 @@ class FrontController
 					$controller = $rc->newInstance();
 					$method = $rc->getMethod( $this->getAction() );
 					$method->invoke( $controller );
+					echo('<p>Front controller invoked action in controller...');
 				}
 				else 
 				{
