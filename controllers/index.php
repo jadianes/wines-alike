@@ -20,9 +20,10 @@ class Index implements IController
 	 **/
 	public function index()
 	{
+		echo('calling index action in index controller');
 		$smarty = new Smarty_WinesAlike();
-		$smarty->assign('sitename', WA_WEBSITE_NAME);
-		$smarty->display('test.tpl');
+		$smarty->assign( 'sitename', WA_WEBSITE_NAME );
+		$smarty->display( 'test.tpl' );
 	}
 
 } // END class 
