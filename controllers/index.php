@@ -9,7 +9,7 @@ require_once ( dirname(__FILE__).'/../models/config.php');
  * @package controllers
  * @author Jose A Dianes
  **/
-class Index implements IController 
+class IndexController implements IController 
 {
 
 	/**
