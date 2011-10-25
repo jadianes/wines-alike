@@ -4,16 +4,11 @@
  * 
  */
 
-// Imports 
-require_once('Smarty.class.php');
 require_once('models/user_manager_class.php');
 require_once('models/user_stats_class.php');
  
-// Instantiante Smarty
-$smarty = new Smarty();
+$smarty = new Smarty_WinesAlike();
 
-// Instantiate User Manager
-session_start();
 $user_manager = new UserManager();
 
 // Get current user name
@@ -27,7 +22,7 @@ $numratings = $user_stats->get_num_ratings();
 $avgrating = 2.5;
 
 // Assign some template variables
-$smarty->assign('title', 'WinesAlike');
+$smarty->assign('sitename', WA_WEBSITE_NAME);
 $smarty->assign('slogan', 'Trust your taste');
 $smarty->assign('username', $username);
 $smarty->assign('numratings', $numratings);

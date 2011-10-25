@@ -1,12 +1,11 @@
 <?php
 
-require_once('Smarty.class.php');
 require_once('models/user_manager_class.php');
 require_once('models/ratings_class.php');
 require_once('models/config.php');
 require_once('template_fns.php');
 $user_manager = new UserManager();
-$smarty = new Smarty();
+$smarty = new Smarty_WinesAlike();
 
 if ($user_manager->check_valid_user()) 
 {

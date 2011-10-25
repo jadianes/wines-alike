@@ -1,9 +1,11 @@
 <?php
-require('Smarty.class.php');
-$smarty = new Smarty();
+
 require_once('models/user_manager_class.php');
 $user_manager = new UserManager();
 require_once('data_valid_fns.php');
+require_once('models/config.php');
+
+$smarty = new Smarty_WinesAlike();
 
 // create short variable names
 $old_passwd = $_POST['old_passwd'];
@@ -22,20 +24,20 @@ if ($user_manager->check_valid_user()) {
   		$email = $user_manager->get_current_user();
      	$user_manager->change_password($email,$old_passwd,$new_passwd);
     	$user_manager->notify_password($email, $new_passwd);
-    	$smarty->assign('title', 'WinesAlike');
+    	$smarty->assign('sitename', WA_WEBSITE_NAME);
     	$smarty->assign('slogan', 'Trust your taste');
 		$smarty->assign('message', 'Your new password has been emailed to you.');
 		$smarty->display('member_system_message.tpl');
   	}
   	catch (Exception $e)
   	{
-    	$smarty->assign('title', 'WinesAlike');
+    	$smarty->assign('sitename', WA_WEBSITE_NAME);
     	$smarty->assign('slogan', 'Trust your taste');
 		$smarty->assign('message', 'Your password could not be changed. '.$e->getMessage());
 		$smarty->display('member_system_message.tpl');
   	}
 } else {
-  $smarty->assign('title', 'WinesAlike');
+  $smarty->assign('sitename', WA_WEBSITE_NAME);
   $smarty->assign('slogan', 'Trust your taste');
   $smarty->assign('message', 'Ups! You must be logged in to view this page...');
   $smarty->display('system_message.tpl');

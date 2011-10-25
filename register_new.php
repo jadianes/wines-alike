@@ -1,12 +1,10 @@
 <?php
-  require('models/config.php');
-  require('Smarty.class.php');
-  $smarty = new Smarty();
-  // include function files for this application
-  require_once('data_valid_fns.php');
   require_once('models/user_manager_class.php');
+  require_once('models/config.php');
+  require_once('data_valid_fns.php');
   $user_manager = new UserManager();
-  
+  $smarty = new Smarty_WinesAlike();
+
   //create short variable names
   $email=$_POST['email'];
   $username=$_POST['username'];

@@ -1,12 +1,12 @@
 <?php
-require_once('Smarty.class.php');
+
 require_once('models/user_manager_class.php'); 
 require_once('models/config.php');
 require_once('models/ratings_class.php');
 require_once('template_fns.php');
 
 $user_manager = new UserManager(); // this class start session in its constructor
-$smarty = new Smarty();
+$smarty = new Smarty_WinesAlike();
 
 //create short variable names
 $email = $_POST['email'];

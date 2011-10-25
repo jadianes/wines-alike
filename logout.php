@@ -1,7 +1,6 @@
 <?php
-require_once('Smarty.class.php');
+
 require_once('template_fns.php');
-$smarty = new Smarty();
 
 session_start();
 $old_user = $_SESSION['valid_user'];  

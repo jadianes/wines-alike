@@ -1,13 +1,12 @@
 <?php
 
-require_once('Smarty.class.php');
 require_once('models/config.php');
 require_once('models/user_manager_class.php');
 require_once('models/ratings_class.php');
 
 function display_user_ratings() {
 	$user_manager = new UserManager();
-	$smarty = new Smarty();
+	$smarty = new Smarty_WinesAlike();
 	$ratings = new Ratings();
 
 	$smarty->assign('sitename', WA_WEBSITE_NAME);
@@ -33,7 +32,7 @@ function display_user_ratings() {
 function display_latest_ratings_member() 
 {
 	$user_manager = new UserManager();
-	$smarty = new Smarty();
+	$smarty = new Smarty_WinesAlike();
 	$ratings = new Ratings();
 	
   	$smarty->assign('sitename', WA_WEBSITE_NAME);
@@ -59,7 +58,7 @@ function display_latest_ratings_member()
 
 function display_latest_ratings()
 {
-	$smarty = new Smarty();
+	$smarty = new Smarty_WinesAlike();
 	$ratings = new Ratings();
 	
   	$smarty->assign('sitename', WA_WEBSITE_NAME);
@@ -76,7 +75,7 @@ function display_latest_ratings()
 
 function display_suggestions() {
 	$user_manager = new UserManager();
-	$smarty = new Smarty();
+	$smarty = new Smarty_WinesAlike();
 	$ratings = new Ratings();
 	
 	$smarty->assign('sitename', WA_WEBSITE_NAME);

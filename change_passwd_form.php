@@ -1,8 +1,8 @@
 <?php 
 require_once('models/user_manager_class.php');
 require_once('models/config.php');
-require_once('Smarty.class.php');
-$smarty = new Smarty();
+
+$smarty = new Smarty_WinesAlike();
 $user_manager = new UserManager(); // this class start session in its constructor
 
 if ($user_manager->check_valid_user()) {

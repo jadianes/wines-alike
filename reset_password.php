@@ -1,9 +1,8 @@
 <?php
-  require_once('models/config.php');
-  require_once('Smarty.class.php');
-  $smarty = new Smarty();
   require_once('models/user_manager_class.php');
+  require_once('models/config.php');
   $user_manager = new UserManager();
+  $smarty = new Smarty_WinesAlike();
 
   // creating short variable name
   $email = $_POST['email'];
