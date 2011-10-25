@@ -14,12 +14,12 @@ class IndexController implements IController
 {
 
 	/**
-	 * undocumented function
+	 * Get latest ratings
 	 *
 	 * @return void
 	 * @author Jose A Dianes
 	 **/
-	public function index()
+	public function latest_ratings()
 	{
 		$user_manager = new UserManager(); // this class start session in its constructor
 		$smarty = new Smarty_WinesAlike();
@@ -54,6 +54,53 @@ class IndexController implements IController
 
 	}
 
+	/**
+	 * Get current user ratings
+	 *
+	 * @return void
+	 * @author Jose A Dianes
+	 **/
+	public function user_ratings()
+	{
+		$user_manager = new UserManager();
+		$smarty = new Smarty_WinesAlike();
+
+		if ($user_manager->check_valid_user()) 
+		{
+			display_user_ratings();
+		} 
+		else 
+		{
+		  $smarty->assign('sitename', WA_WEBSITE_NAME);
+		  $smarty->assign('slogan', 'Trust your taste');
+		  $smarty->assign('message', 'Sorry, you must be a member to see this page.');
+		  $smarty->display('system_message.tpl');
+		}		
+	}
+	
+	/**
+	 * Get suggestions for the current user
+	 *
+	 * @return void
+	 * @author Jose A Dianes
+	 **/
+	public function suggestions()
+	{
+		$user_manager = new UserManager();
+		$smarty = new Smarty_WinesAlike();
+
+		if ($user_manager->check_valid_user()) 
+		{
+			display_suggestions();
+		} 
+		else 
+		{
+		  $smarty->assign('sitename', WA_WEBSITE_NAME);
+		  $smarty->assign('slogan', 'Trust your taste');
+		  $smarty->assign('message', 'Sorry, you must be a member to see this page.');
+		  $smarty->display('system_message.tpl');
+		}
+	}
 
 } // END class 
 

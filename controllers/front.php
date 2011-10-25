@@ -41,7 +41,7 @@ class FrontController
 		
 		$splits = explode('/', trim($request,'/'));
 		$this->_controller = !empty($splits[0])?$splits[0]:'IndexController';
-		$this->_action = !empty($splits[1])?$splits[1]:'index';
+		$this->_action = !empty($splits[1])?$splits[1]:'latest_ratings';
 		if ( !empty($splits[2]) ) 
 		{
 			$keys = $values = array();
