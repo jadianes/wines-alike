@@ -77,8 +77,11 @@ class FrontController
 			if ( $rc->implementsInterface( 'IController' ))  
 			{
 				if ( $rc->hasMethod( $this->getAction() ) ) {
+					echo('<p>Front controller before creating instance...');
 					$controller = $rc->newInstance();
+					echo('<p>Front controller before getting method...');
 					$method = $rc->getMethod( $this->getAction() );
+					echo('<p>Front controller before invoking action in controller...');
 					$method->invoke( $controller );
 					echo('<p>Front controller invoked action in controller...');
 				}
