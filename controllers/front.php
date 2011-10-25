@@ -40,7 +40,7 @@ class FrontController
 		$request = $_SERVER['REQUEST_URI'];
 		
 		$splits = explode('/', trim($request,'/'));
-		$this->_controller = !empty($splits[0])?$splits[0]:'ratings';
+		$this->_controller = !empty($splits[0])?$splits[0]:'ratingsc';
 		$this->_action = !empty($splits[1])?$splits[1]:'latest_ratings';
 		if ( !empty($splits[2]) ) 
 		{
