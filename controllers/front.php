@@ -71,6 +71,7 @@ class FrontController
 	 **/
 	public function route()
 	{
+		echo('<p>Controller:'.$this->getController().' Action:'.$this->getAction().'</p>');
 		if ( class_exists( $this->getController() ) ) 
 		{
 			$rc = new ReflectionClass( $this->getController() );
