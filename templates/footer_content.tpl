@@ -1,7 +1,6 @@
   	<p>&copy; WinesAlike 2011
-	<a id='about' href='about.php'>about us</a> |
-	<a id='advertisement' href='help.php'>advertisement</a> |
-	<a id='privacy' href='help.php'>privacy</a> |
-	<a id='conditions' href='help.php'>conditions</a> |
-	<a id='help' href='help.php'>help</a>
+	<a id='about' href='/company/about'>about us</a> |
+	<a id='are you producer?' href='/company/producers'>advertisement</a> |
+	<a id='privacy' href='company/privacy'>privacy</a> |
+	<a id='help' href='/company/help'>help</a>
 	</p>

@@ -1,6 +1,6 @@
 {* Smarty *}
 
-<form class="form-stacked" method='post' action='register_new.php'>
+<form class="form-stacked" method='post' action='/useractions/signup'>
 	<fieldset>
 	<legend>Not a member? Join us today!</legend>
 	
