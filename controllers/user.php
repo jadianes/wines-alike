@@ -110,7 +110,7 @@ class useractions implements IController
 	 * @return void
 	 * @author Jose A Dianes
 	 **/
-	public function sign_up_form()
+	public function signup_form()
 	{
 		$smarty = new Smarty_WinesAlike();
 
@@ -126,7 +126,7 @@ class useractions implements IController
 	 * @return void
 	 * @author Jose A Dianes
 	 **/
-	public function sign_up()
+	public function signup()
 	{
 		  $user_manager = new UserManager();
 		  $smarty = new Smarty_WinesAlike();
