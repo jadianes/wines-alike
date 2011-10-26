@@ -126,10 +126,21 @@ class UserManager
     return isset($_SESSION['valid_user']);
   }
   function register_valid_user($email) {
-  // stores in the session the user currently logged in
+    // stores in the session the user currently logged in
     $_SESSION['valid_user'] = $email;
   }
 
+	/**
+	 * unregisters current user and destroys session
+	 *
+	 * @return session_destroy result
+	 * @author Jose A Dianes
+	 **/
+	public function unregister_valid_user()
+	{
+		unset($_SESSION['valid_user']);
+		return session_destroy();
+	}
   
   function get_current_user()
   {
