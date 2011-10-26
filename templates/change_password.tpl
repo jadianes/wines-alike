@@ -3,7 +3,7 @@
 {extends file="member.tpl"}
 
 {block name="content"}
-    <form class="user_forms" action='change_password.php' method='post'>
+    <form action='/useractions/change_password/' method='post'>
 	<fieldset>
 		<legend>Change your password</legend>
 		

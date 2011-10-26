@@ -36,6 +36,30 @@ class useractions implements IController
 	 * @return void
 	 * @author Jose A Dianes
 	 **/
+	public function change_password_form()
+	{
+		$smarty = new Smarty_WinesAlike();
+		$user_manager = new UserManager(); // this class start session in its constructor
+
+		if ($user_manager->check_valid_user()) {
+		  $smarty->assign('sitename', WA_WEBSITE_NAME);
+		  $smarty->assign('username', $user_manager->get_username_by_email($user_manager->get_current_user()));
+		  // display it
+		  $smarty->display('change_password.tpl');
+		} else {
+		  $smarty->assign('sitename', WA_WEBSITE_NAME);
+		  $smarty->assign('slogan', 'Trust your taste');
+		  $smarty->assign('message', 'Ups! You must be logged in to view this page...');
+		  $smarty->display('system_message.tpl');
+		}
+	}
+	
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Jose A Dianes
+	 **/
 	public function change_password()
 	{
 		$user_manager = new UserManager();
