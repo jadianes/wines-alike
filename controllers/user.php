@@ -115,16 +115,6 @@ class useractions implements IController
 		
 	}
 	
-	/**
-	 * undocumented function
-	 *
-	 * @return void
-	 * @author Jose A Dianes
-	 **/
-	public function reports()
-	{
-		
-	}
 	
 } // END class 
 
