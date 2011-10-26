@@ -123,7 +123,7 @@ class UserManager
   	function check_valid_user() 
   	// see who is logged in
   	{
-    return isset($_SESSION['valid_user']);
+    	return isset($_SESSION['valid_user']);
   	}
   	
 	function register_valid_user($email) 

@@ -179,7 +179,7 @@ class useractions implements IController
 		    // provide link to members page
 			$smarty->assign('sitename', WA_WEBSITE_NAME);
 			$smarty->assign('slogan', 'Trust your taste');
-			$smarty->assign('message', 'Your registration was successful.  Go to the <a href="">members</a> page to start rating wines!');
+			$smarty->assign('message', 'Your registration was successful.  Go to the <a href="/">members</a> page to start rating wines!');
 			$smarty->display('system_message.tpl');
 		}
 		catch (Exception $e)
