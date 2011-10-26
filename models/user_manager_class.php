@@ -120,15 +120,17 @@ class UserManager
   }
 
 
-  function check_valid_user() 
-  // see who is logged in
-  {
+  	function check_valid_user() 
+  	// see who is logged in
+  	{
     return isset($_SESSION['valid_user']);
-  }
-  function register_valid_user($email) {
-    // stores in the session the user currently logged in
-    $_SESSION['valid_user'] = $email;
-  }
+  	}
+  	
+	function register_valid_user($email) 
+	// stores in the session the user currently logged in
+	{
+    	$_SESSION['valid_user'] = $email;
+  	}
 
 	/**
 	 * unregisters current user and destroys session
