@@ -1,8 +1,8 @@
 <?php
 
-require_once('models/config.php');
-require_once('models/user_manager_class.php');
-require_once('models/ratings_class.php');
+require_once(dirname(__FILE__).'/../models/config.php');
+require_once(dirname(__FILE__).'/../models/user_manager_class.php');
+require_once(dirname(__FILE__).'/../models/ratings_class.php');
 
 function display_user_ratings() {
 	$user_manager = new UserManager();
