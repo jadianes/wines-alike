@@ -5,12 +5,12 @@ require_once(dirname(__FILE__).'/../models/user_manager_class.php');
 require_once(dirname(__FILE__).'/../models/ratings_class.php');
 require_once(dirname(__FILE__).'/../template_fns.php');
 /**
- * Index controller
+ * Actions menu controller
  *
  * @package controllers
  * @author Jose A Dianes
  **/
-class ratingsc implements IController 
+class actions implements IController 
 {
 
 	/**
@@ -101,7 +101,29 @@ class ratingsc implements IController
 		  $smarty->display('system_message.tpl');
 		}
 	}
+	
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Jose A Dianes
+	 **/
+	public function add_rating()
+	{
+		
+	}
 
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Jose A Dianes
+	 **/
+	public function delete_rating()
+	{
+		
+	}
+	
 } // END class 
 
 ?>

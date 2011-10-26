@@ -1,4 +1,9 @@
 <?php
+
+require_once('actions.php');
+require_once('user.php');
+require_once('reports.php');
+
 /**
  * A singleton front controller.
  * It scans the requested url and creates an action passing the appropriate keys and values
@@ -40,7 +45,7 @@ class FrontController
 		$request = $_SERVER['REQUEST_URI'];
 		
 		$splits = explode('/', trim($request,'/'));
-		$this->_controller = !empty($splits[0])?$splits[0]:'ratingsc';
+		$this->_controller = !empty($splits[0])?$splits[0]:'actions';
 		$this->_action = !empty($splits[1])?$splits[1]:'latest_ratings';
 		if ( !empty($splits[2]) ) 
 		{
