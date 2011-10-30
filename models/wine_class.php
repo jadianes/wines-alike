@@ -1,5 +1,7 @@
 <?php
 
+require_once("config.php");
+
 class Wine
 {
 	var $wine_id = -1;

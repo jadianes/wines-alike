@@ -1,6 +1,6 @@
 {* Smarty *}
 
-<form class="form-stacked" method='post' action='/useractions/signup'>
+<form class="form-stacked" method='post' action='<script language=php> echo WA_WEBSITE_URL; </script>/useractions/signup'>
 	<fieldset>
 	<legend>Not a member? Join us today!</legend>
 	

@@ -40,7 +40,7 @@ class UserManager
 
   function __construct() 
   {
-    session_start();
+    if ( session_id() == "" ) session_start();
     $this->database = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
   }
 
@@ -78,7 +78,8 @@ class UserManager
     	INSERT INTO users (user_name, passwd, email) 
     	VALUES (?, ?, ?)"))
     {
-    	$stmt->bind_param('sss', $username, sha1($password), $email);
+		$spassword = sha1($password);
+    	$stmt->bind_param('sss', $username, $spassword, $email);
     	$stmt->execute();
 		// Now send welcome email
     	send_welcome_email($username, $email);
@@ -140,16 +141,8 @@ class UserManager
 	 **/
 	public function unregister_valid_user()
 	{
+		unset($_SESSION['valid_user']);
 		$_SESSION = array();
-		// If it's desired to kill the session, also delete the session cookie.
-		// Note: This will destroy the session, and not just the session data!
-		if (ini_get("session.use_cookies")) {
-		    $params = session_get_cookie_params();
-		    setcookie(session_name(), '', time() - 42000,
-		        $params["path"], $params["domain"],
-		        $params["secure"], $params["httponly"]
-		    );
-		}
 		return session_destroy();
 	}
   

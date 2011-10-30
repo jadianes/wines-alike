@@ -8,7 +8,7 @@
 <div class="row">
   <div class="hero-unit">
     <h3>Some insight about your taste...</h3>
-      <li><a href="statistics.php">my taste</a></li>
+      <li><a href="<script language=php> echo WA_WEBSITE_URL; </script>/reports/complete">my taste</a></li>
   </div>
 </div>
 

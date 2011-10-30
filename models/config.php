@@ -6,6 +6,7 @@ define('DB_PASSWORD','');
 define('DB_NAME', '');
 
 define('WA_WEBSITE_NAME', '');
+define('WA_WEBSITE_URL', '');
 define('WA_ADMIN_NAME', '');
 define('WA_ADMIN_EMAIL', '');
 define('WA_SUPPORT_EMAIL', '');

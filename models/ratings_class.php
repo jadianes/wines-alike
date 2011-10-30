@@ -22,7 +22,7 @@ class Ratings
 	function __construct() 
 	{
 		$this->conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		if ($mysqli->connect_error) {
+		if ($this->conn->connect_error) {
 		    throw new DBException("Ratings DB error");
 		}
 	}
@@ -50,6 +50,7 @@ class Ratings
 		if ( !($region->load($region_name)) ) 
 		{ // New region, add it
 			$region->region_name = $region_name;
+			$region->country = "unknown";
 			if ( !($region->save()) ) throw new DBException('Could not add Region to DB.');
 		} 
 		
@@ -183,7 +184,7 @@ class Ratings
 				}
 			}
 		}
-		if ( $discrepances != NULL )
+		if ( isset ( $discrepances ) )
 		{ 
 		    foreach ($discrepances as $affine_user_id => $discrepance) 
 		    {
@@ -226,7 +227,14 @@ class Ratings
 				}
 		    }  
         }
-		return $suggestions;
+		if ( isset( $suggestions ) )
+		{
+			return $suggestions;
+		}
+		else 
+		{
+			return array();
+		}
 	}
  	
 	/*

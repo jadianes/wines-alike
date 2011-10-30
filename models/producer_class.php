@@ -40,6 +40,7 @@ class Producer
 			else
 			{
 				$stmt->close();
+				$this->region_id = -1;
 				return false;
 			}
 		}
@@ -69,6 +70,7 @@ class Producer
 			else
 			{
 				$stmt->close();
+				$this->region_id = -1;
 				return false;
 			}
 		}

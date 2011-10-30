@@ -9,6 +9,7 @@ function display_user_ratings() {
 	$smarty = new Smarty_WinesAlike();
 	$ratings = new Ratings();
 
+	$smarty->caching = 0;
 	$smarty->assign('sitename', WA_WEBSITE_NAME);
   	$smarty->assign('slogan', 'Trust your taste');  
   	$smarty->assign('username', $user_manager->get_username_by_email($user_manager->get_current_user()));
@@ -35,11 +36,12 @@ function display_latest_ratings_member()
 	$smarty = new Smarty_WinesAlike();
 	$ratings = new Ratings();
 	
+	$smarty->caching = 0;
   	$smarty->assign('sitename', WA_WEBSITE_NAME);
   	$smarty->assign('slogan', 'Trust your taste');  
   	$smarty->assign('username', $user_manager->get_username_by_email($user_manager->get_current_user()));
   	// show latest ratings
-  	$ratings =& new Ratings();
+  	$ratings = new Ratings();
   	$rating_array = $ratings->get_latest_ratings( $user_manager->get_current_user(), 16 );
   	$smarty->assign( 'ratings', $rating_array );
   	$smarty->assign( 'ratings_title', 'Latest Ratings');
@@ -61,11 +63,12 @@ function display_latest_ratings()
 	$smarty = new Smarty_WinesAlike();
 	$ratings = new Ratings();
 	
+	$smarty->caching = 0;
   	$smarty->assign('sitename', WA_WEBSITE_NAME);
   	$smarty->assign('slogan', 'Trust your taste');
   
   	// show latest ratings
-  	$ratings =& new Ratings();
+  	$ratings = new Ratings();
   	$rating_array = $ratings->get_latest_ratings('',4);
   	$smarty->assign( 'ratings', $rating_array );
   	$smarty->assign( 'ratings_title', 'Latest Ratings');
@@ -78,6 +81,7 @@ function display_suggestions() {
 	$smarty = new Smarty_WinesAlike();
 	$ratings = new Ratings();
 	
+	$smarty->caching = 0;
 	$smarty->assign('sitename', WA_WEBSITE_NAME);
   	$smarty->assign('slogan', 'Trust your taste');  
   	$smarty->assign('username', $user_manager->get_username_by_email($user_manager->get_current_user()));

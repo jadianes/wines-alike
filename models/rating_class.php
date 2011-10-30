@@ -43,6 +43,7 @@ class Rating
 			else
 			{
 				$stmt->close();
+				$this->rating_id = -1;
 				return false;
 			}
 		}

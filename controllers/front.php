@@ -44,6 +44,9 @@ class FrontController
 	private function __construct()
 	{
 		$request = $_SERVER['REQUEST_URI'];
+		$php_self = $_SERVER['PHP_SELF'];	
+		$subfix = str_replace("index.php", "", $php_self);
+		$request = str_replace($subfix, "/", $request);
 		
 		$splits = explode('/', trim($request,'/'));
 		$this->_controller = !empty($splits[0])?$splits[0]:'actions';
@@ -80,7 +83,7 @@ class FrontController
 		if ( class_exists( $this->getController() ) ) 
 		{
 			$rc = new ReflectionClass( $this->getController() );
-			if ( $rc->implementsInterface( 'IController' ))  
+			if ( $rc->implementsInterface( 'IController' ) )  
 			{
 				if ( $rc->hasMethod( $this->getAction() ) ) {
 					$controller = $rc->newInstance();
@@ -99,6 +102,7 @@ class FrontController
 		}
 		else 
 		{
+			echo "<p>Controller exception</p>";
 			throw new Exception( "Controller" );
 		}
 	}

@@ -1,5 +1,7 @@
 <?php
 
+require_once("config.php");
+
 class Region
 {
 	var $region_id=-1; // if not -1, update when save :)
@@ -44,6 +46,7 @@ class Region
 			else
 			{
 				$stmt->close();
+				$this->region_id = -1;
 				return false;
 			}
 		}
@@ -75,6 +78,7 @@ class Region
 			else
 			{
 				$stmt->close();
+				$this->region_id = -1;
 				return false;
 			}
 		}
@@ -89,6 +93,7 @@ class Region
 		if ( $this->region_id == -1 )
 		// if a new id is not assigned, this will be a new wine
 		{
+			echo "<p>Trying to save region ".$this->region_name."</p>";
 			if ( $stmt = $this->conn->prepare("
 				INSERT INTO regions (region_name, country)
             	VALUES (?, ?)") )
@@ -106,7 +111,7 @@ class Region
 		// update
 		{
 			if ( $stmt = $this->conn->prepare("
-				UPDATE regins 
+				UPDATE regions 
 				SET region_name=?, country=?
 				WHERE region_id=?") )
         	{

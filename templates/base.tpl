@@ -10,7 +10,7 @@
 	<div class="topbar" data-dropdown="dropdown" >
 		<div class="topbar-inner">
 			<div class="container">
-				<h3><a href="/">{$sitename}</a></h3>
+				<h3><a href="<script language=php> echo WA_WEBSITE_URL; </script>">{$sitename}</a></h3>
 				{block name="header"}{/block}
 			</div>
 		</div>

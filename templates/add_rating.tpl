@@ -3,7 +3,7 @@
 {extends file="member.tpl"}
 
 {block name="content"}
-<form id='add_rating_form' action='add_ratings.php' method='post'>
+<form id='add_rating_form' action="<script language=php> echo WA_WEBSITE_URL; </script>/actions/add_rating" method='post'>
 	<fieldset>
 		<legend>Add new rating</legend>
 		
