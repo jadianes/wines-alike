@@ -117,8 +117,8 @@ class actions implements IController
 		if ($user_manager->check_valid_user()) 
 		{
 			echo "<p>Valid user checked</p>";
-				echo "<p>Valid user checked</p>";
-					echo "<p>Valid user checked</p>";
+			echo "<p>Valid user checked</p>";
+			echo "<p>Valid user checked</p>";
 			try 
 			{
 			    if (!filled_out($_POST)) // We must change this for something more apropriate
@@ -130,6 +130,7 @@ class actions implements IController
 				$region = $_POST['region'];
 				$vintage_year = $_POST['vintage_year'];
 				$rating = $_POST['rating'];
+				
 		 		// try to add rating
 		 		$ratings = new Ratings();
 		    	$ratings->add_rating($user_manager->get_current_user(), $wine_name, $producer, $region, $vintage_year, $rating);
