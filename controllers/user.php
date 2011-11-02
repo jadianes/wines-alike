@@ -172,15 +172,21 @@ class useractions implements IController
 
 		    // attempt to register
 		    // this function can also throw an exception
-		    $user_manager->register($username, $email, $passwd);
-		    // register session variable
-			$user_manager->register_valid_user($email);    
+		    if ( $user_manager->register($username, $email, $passwd) )
+			{
+		    	// register session variable
+				$user_manager->register_valid_user($email);    
 
-		    // provide link to members page
-			$smarty->assign('sitename', WA_WEBSITE_NAME);
-			$smarty->assign('slogan', 'Trust your taste');
-			$smarty->assign('message', 'Your registration was successful.  Go to the <a href="/">members</a> page to start rating wines!');
-			$smarty->display('system_message.tpl');
+		    	// provide link to members page
+				$smarty->assign('sitename', WA_WEBSITE_NAME);
+				$smarty->assign('slogan', 'Trust your taste');
+				$smarty->assign('message', 'Your registration was successful.  Go to the <a href="/">members</a> page to start rating wines!');
+				$smarty->display('system_message.tpl');
+			}
+			else
+			{
+				throw new Exception('e-mail address already used')
+			}
 		}
 		catch (Exception $e)
 		{

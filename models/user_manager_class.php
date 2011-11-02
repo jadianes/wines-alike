@@ -49,76 +49,84 @@ class UserManager
   	$this->database->close();
   }
   
-  function register($username, $email, $password)
-  // register new user with db
-  // return true or error message
-  {
-    // check if username is unique
-    $stmt = $this->database->stmt_init();
-    if ($stmt->prepare("SELECT * FROM users WHERE email=?")) 
-	{
-		$stmt->bind_param( 's', $email ); 
-		$stmt->execute();
-		$stmt->store_result();
-    	if ( $stmt->num_rows > 0 ) 
+	/**
+	 * register a new user in the database
+	 *
+	 * @return true if success, false if the user exists.
+	 * @author Jose A Dianes
+	 **/
+  	function register($username, $email, $password)
+  	// register new user with db
+  	// return true or error message
+  	{
+    	// check if email is unique
+    	$stmt = $this->database->stmt_init();
+    	if ($stmt->prepare("SELECT * FROM users WHERE email=?")) 
+		{
+			$stmt->bind_param( 's', $email ); 
+			$stmt->execute();
+			$stmt->store_result();
+    		if ( $stmt->num_rows > 0 ) 
+			{
+    			$stmt->close();
+      			return false;
+      		}
+		} 
+		else 
+		{
+      		throw new Exception('Could not execute query');    	
+		}
+
+    	// We should also check if its a valid email, maybe requesting user account confirmation.
+    	// if ok, put in db
+    	$stmt = $this->database->stmt_init();
+    	if ($stmt->prepare("
+    		INSERT INTO users (user_name, passwd, email) 
+    		VALUES (?, ?, ?)"))
+    	{
+			$spassword = sha1($password);
+    		$stmt->bind_param('sss', $username, $spassword, $email);
+    		$stmt->execute();
+			// Now send welcome email
+    		send_welcome_email($username, $email);
+			send_admin_email($username, $email);
+			$stmt->close();
+    	} 
+		else 
 		{
     		$stmt->close();
-      		throw new Exception('That email is registered - go back and choose another one.');
-      	}
-	} 
-	else 
-	{
-      throw new Exception('Could not execute query');    	
-	}
-
-    // We should also check if its a valid email, maybe requesting user account confirmation.
-    // if ok, put in db
-    $stmt = $this->database->stmt_init();
-    if ($stmt->prepare("
-    	INSERT INTO users (user_name, passwd, email) 
-    	VALUES (?, ?, ?)"))
-    {
-		$spassword = sha1($password);
-    	$stmt->bind_param('sss', $username, $spassword, $email);
-    	$stmt->execute();
-		// Now send welcome email
-    	send_welcome_email($username, $email);
-		send_admin_email($username, $email);
-		$stmt->close();
-    } 
-	else 
-	{
-    	$stmt->close();
-    	throw new Exception('Could not register you in database - please try again later.');
-    }
-    return true;
-  }
+    		throw new Exception('Could not execute query');
+    	}
+    	return true;
+  	}
  
-  function login_exists($email, $password)
-  // check username and password with db
-  // if yes, return true
-  // else throw exception
-  {
-
-    // check if username is unique
-    $stmt = $this->database->stmt_init();
-    if ($stmt->prepare("SELECT * FROM users 
-                        WHERE email=?
-                        AND passwd = sha1(?)"))
-    {                 
-    	$stmt->bind_param('ss', $email, $password);
-    	$stmt->execute();
-    	$stmt->store_result();
-  		if ($stmt->num_rows()>0)
-      		return true;
-    	else 
-      		throw new Exception('Could not log you in.');
-    } 
-	else 
-	{
-        throw new Exception('Could not log you in.');
-    }
-  }
+	/**
+	 * Check if login email exists in DB
+	 *
+	 * @return void
+	 * @author Jose A Dianes
+	 **/
+  	function login_exists($email, $password)
+  	{
+		// check if login info exists
+    	$stmt = $this->database->stmt_init();
+    	if ($stmt->prepare("SELECT * FROM users 
+                        	WHERE email=?
+                        	AND passwd = sha1(?)"))
+    	{                 
+    		$stmt->bind_param('ss', $email, $password);
+    		$stmt->execute();
+    		$stmt->store_result();
+  			if ($stmt->num_rows()>0)
+      			return true;
+    		else 
+      			return false;
+    	} 
+		else 
+		{
+        	throw new Exception('DB query error');
+    	}
+  	}
 
 
   	function check_valid_user() 
@@ -141,21 +149,20 @@ class UserManager
 	 **/
 	public function unregister_valid_user()
 	{
-		unset($_SESSION['valid_user']);
 		$_SESSION = array();
 		return session_destroy();
 	}
   
-  function get_current_user()
-  {
-    if (isset($_SESSION['valid_user'])) {
-	  return $_SESSION['valid_user'];
-	}
-	else
-	{
-	  return false;
-	}
-  }
+  	function get_current_user()
+  	{
+    	if (isset($_SESSION['valid_user'])) {
+	  		return $_SESSION['valid_user'];
+		}
+		else
+		{
+	  		return false;
+		}
+  	}
   
   function change_password($email, $old_password, $new_password)
   // change password for username/old_password to new_password
