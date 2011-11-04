@@ -1,4 +1,4 @@
-WinesAlike is a PHP script for deploying wine affinity websites.
+WinesAlike is a PHP framework for deploying wine affinity websites.
 
 == Model-View-Controller Architecture ==
 It follows a "Model-View-Controller" architectural style where data models (together with business rules) are separated from information presentation (views) and user interaction (controllers).
