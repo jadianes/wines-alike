@@ -19,6 +19,11 @@ Test cases are based in PHPUnit, and can be found in folder /tests
 == API ==
 The folder /API contains controllers (following a similar schema to html controllers) that return JSON objects for different actions. It can be used as REST services (e.g. in mobile clients).
 
+== MANAGER TOOL ==
+The framework includes a Manager tool implemented in Java and using JDBC to access the MySQL tables used by WinesAlike.
+
+Right now is in its very initial state, allowing just to view the tables entries in console mode. Next steps include providing a web interface and finally complete management functionality (add, remove, and update entries in wines, regions, producers, etc).
+
 == INSTALLATION ==
 The script install.php creates all the MySQL tables containing the model data. This script uses the configuration parameters defined in 'models/config.php'.
 
