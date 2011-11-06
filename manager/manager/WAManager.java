@@ -1,11 +1,11 @@
-package db;
+package manager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class WAManager 
+public abstract class WAManager 
 {
 	String table;
 	String user;
@@ -54,4 +54,6 @@ public class WAManager
 		}		
 	}
 	
+	public abstract String toReport();
+
 }

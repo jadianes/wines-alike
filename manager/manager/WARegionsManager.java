@@ -1,4 +1,4 @@
-package db;
+package manager;
 
 import java.sql.SQLException;
 
@@ -26,6 +26,12 @@ public class WARegionsManager extends WAManager {
 			e.printStackTrace();
 		}
 		return res;
+	}
+
+	@Override
+	public String toReport() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

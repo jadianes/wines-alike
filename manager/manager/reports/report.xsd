@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+            jxb:version="2.0">
+
+<xsd:element name="Report" type="EntrySetType"/>
+
+<xsd:complexType name="EntrySetType">
+  <xsd:sequence>
+    <xsd:element name="Entry" type="EntryType"
+                 maxOccurs="unbounded"/>
+  </xsd:sequence>
+  <xsd:attribute name="table" type="xsd:string"/>
+</xsd:complexType>
+
+<xsd:complexType name="EntryType">
+  <xsd:sequence>
+    <xsd:element name="Field" type="FieldType" maxOccurs="unbounded"/>
+  </xsd:sequence>
+</xsd:complexType>
+
+
+<xsd:complexType name="FieldType">
+  <xsd:sequence>
+    <xsd:element name="Key" type="xsd:string"/>
+    <xsd:element name="Type" type="xsd:string"/>
+    <xsd:element name="Value" type="xsd:string"/>
+  </xsd:sequence>
+</xsd:complexType>
+
+</xsd:schema>
