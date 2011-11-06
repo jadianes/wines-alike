@@ -1,5 +1,6 @@
 
 
+import manager.ManagerConfig;
 import manager.Reporter;
 import manager.WAEventsManager;
 import manager.WAProducersManager;
@@ -16,38 +17,38 @@ public class ManagerConsole {
 	public static void main(String[] args) {
 		
 		Reporter reporter = new Reporter(
-				"wa_admin", 
-				"WinesAlike#321", 
-				"winesalike", 
-				"localhost",
+				ManagerConfig.user, 
+				ManagerConfig.password, 
+				ManagerConfig.database, 
+				ManagerConfig.host,
 				"users");
 		
 		reporter = new Reporter(
-				"wa_admin", 
-				"WinesAlike#321", 
-				"winesalike", 
-				"localhost",
+				ManagerConfig.user, 
+				ManagerConfig.password, 
+				ManagerConfig.database, 
+				ManagerConfig.host,
 				"regions");
 		
 		reporter = new Reporter(
-				"wa_admin", 
-				"WinesAlike#321", 
-				"winesalike", 
-				"localhost",
+				ManagerConfig.user, 
+				ManagerConfig.password, 
+				ManagerConfig.database, 
+				ManagerConfig.host,
 				"producers");
 		
 		reporter = new Reporter(
-				"wa_admin", 
-				"WinesAlike#321", 
-				"winesalike", 
-				"localhost",
+				ManagerConfig.user, 
+				ManagerConfig.password, 
+				ManagerConfig.database, 
+				ManagerConfig.host,
 				"wines");
 		
 		reporter = new Reporter(
-				"wa_admin", 
-				"WinesAlike#321", 
-				"winesalike", 
-				"localhost",
+				ManagerConfig.user, 
+				ManagerConfig.password, 
+				ManagerConfig.database, 
+				ManagerConfig.host,
 				"events");
 		
 	}
