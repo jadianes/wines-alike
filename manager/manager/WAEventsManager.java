@@ -1,6 +1,10 @@
 package manager;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
+
+import manager.reports.Field;
+import manager.reports.Report;
 
 
 public class WAEventsManager extends WAManager {
@@ -31,8 +35,39 @@ public class WAEventsManager extends WAManager {
 
 	@Override
 	public String toReport() {
-		// TODO Auto-generated method stub
-		return null;
+		String res = new String();
+		Report rep = new Report(this.table, this.table);
+		
+		try {
+			while (this.rs.next()) 
+			{
+				LinkedList<Field> newEntry = new LinkedList<Field>();
+				
+				int eventId = this.rs.getInt("event_id");
+				newEntry.add(new Field("event_id","int",""+eventId));
+				
+				int eventType = this.rs.getInt("event_type");
+			    newEntry.add(new Field("event_type","int",""+eventType));
+			    
+				int userId = this.rs.getInt("user_id");
+			    newEntry.add(new Field("user_id","String",""+userId));
+			    
+				int eventActionId = this.rs.getInt("event_action_id");
+			    newEntry.add(new Field("event_action_id","int",""+eventActionId));
+			    
+			    String eventDate = this.rs.getString("event_date");
+			    newEntry.add(new Field("event_date","String",""+eventDate));
+			    
+			    String description = this.rs.getString("description");
+			    newEntry.add(new Field("description","String",""+description));
+			    
+			    rep.addEntry(newEntry);
+			}
+			res = rep.generate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+		return res;
 	}
 	
 }

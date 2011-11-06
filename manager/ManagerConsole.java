@@ -22,6 +22,34 @@ public class ManagerConsole {
 				"localhost",
 				"users");
 		
+		reporter = new Reporter(
+				"wa_admin", 
+				"WinesAlike#321", 
+				"winesalike", 
+				"localhost",
+				"regions");
+		
+		reporter = new Reporter(
+				"wa_admin", 
+				"WinesAlike#321", 
+				"winesalike", 
+				"localhost",
+				"producers");
+		
+		reporter = new Reporter(
+				"wa_admin", 
+				"WinesAlike#321", 
+				"winesalike", 
+				"localhost",
+				"wines");
+		
+		reporter = new Reporter(
+				"wa_admin", 
+				"WinesAlike#321", 
+				"winesalike", 
+				"localhost",
+				"events");
+		
 	}
 
 }

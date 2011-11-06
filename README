@@ -1,4 +1,4 @@
-WinesAlike is a PHP framework for deploying wine affinity websites.
+WinesAlike is a PHP (together with Java for admin tasks) framework for deploying wine affinity websites.
 
 == Model-View-Controller Architecture ==
 It follows a "Model-View-Controller" architectural style where data models (together with business rules) are separated from information presentation (views) and user interaction (controllers).
@@ -22,7 +22,9 @@ The folder /API contains controllers (following a similar schema to html control
 == MANAGER TOOL ==
 The framework includes a Manager tool implemented in Java and using JDBC to access the MySQL tables used by WinesAlike.
 
-Right now is in its very initial state, allowing just to view the tables entries in console mode. Next steps include providing a web interface and finally complete management functionality (add, remove, and update entries in wines, regions, producers, etc).
+The tool allows generating XML reports from database queries using JAXB.
+
+It also provides an HTTP interface through Servlets that allows generating/deleting new reports remotely (POAT NS DELETE) an also retrieve them (GET).
 
 == INSTALLATION ==
 The script install.php creates all the MySQL tables containing the model data. This script uses the configuration parameters defined in 'models/config.php'.

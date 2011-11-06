@@ -1,6 +1,10 @@
 package manager;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
+
+import manager.reports.Field;
+import manager.reports.Report;
 
 
 public class WAProducersManager extends WAManager {
@@ -28,8 +32,30 @@ public class WAProducersManager extends WAManager {
 
 	@Override
 	public String toReport() {
-		// TODO Auto-generated method stub
-		return null;
+		String res = new String();
+		Report rep = new Report(this.table, this.table);
+		
+		try {
+			while (this.rs.next()) 
+			{
+				LinkedList<Field> newEntry = new LinkedList<Field>();
+				
+				int producerId = this.rs.getInt("producer_id");
+				newEntry.add(new Field("producer_id","int",""+producerId));
+				
+			    String producerName = this.rs.getString("producer_name");
+			    newEntry.add(new Field("producer_name","int",""+producerName));
+			    
+			    String country = this.rs.getString("country");
+			    newEntry.add(new Field("country","String",""+country));
+
+			    rep.addEntry(newEntry);
+			}
+			res = rep.generate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+		return res;
 	}
 	
 }

@@ -1,6 +1,10 @@
 package manager;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
+
+import manager.reports.Field;
+import manager.reports.Report;
 
 
 public class WARegionsManager extends WAManager {
@@ -30,8 +34,36 @@ public class WARegionsManager extends WAManager {
 
 	@Override
 	public String toReport() {
-		// TODO Auto-generated method stub
-		return null;
+		String res = new String();
+		Report rep = new Report(this.table, this.table);
+		
+		try {
+			while (this.rs.next()) 
+			{
+				LinkedList<Field> newEntry = new LinkedList<Field>();
+				
+				int regionId = this.rs.getInt("region_id");
+				newEntry.add(new Field("region_id","int",""+regionId));
+				
+			    String regionName = this.rs.getString("region_name");
+			    newEntry.add(new Field("region_name","String",""+regionName));
+			    
+			    String country = this.rs.getString("country");
+			    newEntry.add(new Field("country","String",""+country));
+			    
+			    double latitud = this.rs.getDouble("latitud");
+			    newEntry.add(new Field("latitud","double",""+latitud));
+			    
+			    double longitud = this.rs.getDouble("latitud");
+			    newEntry.add(new Field("longitud","double",""+longitud));
+			    
+			    rep.addEntry(newEntry);
+			}
+			res = rep.generate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+		return res;
 	}
 	
 }

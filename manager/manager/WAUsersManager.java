@@ -47,7 +47,7 @@ public class WAUsersManager extends WAManager {
 				newEntry.add(new Field("user_id","int",""+userId));
 				
 			    int userType = this.rs.getInt("user_type");
-			    newEntry.add(new Field("userType","int",""+userType));
+			    newEntry.add(new Field("user_type","int",""+userType));
 			    
 			    String userName = this.rs.getString("user_name");
 			    newEntry.add(new Field("user_name","String",""+userName));

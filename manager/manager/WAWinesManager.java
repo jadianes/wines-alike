@@ -1,6 +1,10 @@
 package manager;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
+
+import manager.reports.Field;
+import manager.reports.Report;
 
 
 public class WAWinesManager extends WAManager {
@@ -33,8 +37,43 @@ public class WAWinesManager extends WAManager {
 
 	@Override
 	public String toReport() {
-		// TODO Auto-generated method stub
-		return null;
+		String res = new String();
+		Report rep = new Report(this.table, this.table);
+		
+		try {
+			while (this.rs.next()) 
+			{
+				LinkedList<Field> newEntry = new LinkedList<Field>();
+				
+				int wineId = this.rs.getInt("wine_id");
+				newEntry.add(new Field("wine_id","int",""+wineId));
+				
+  				int producerId = this.rs.getInt("producer_id");
+			    newEntry.add(new Field("producer_id","int",""+producerId));
+
+			    String wineName = this.rs.getString("wine_name");
+			    newEntry.add(new Field("wine_name","String",""+wineName));
+
+			    String region = this.rs.getString("region");
+			    newEntry.add(new Field("region","String",""+region));
+
+			    String vintage = this.rs.getString("vintage_year");
+			    newEntry.add(new Field("vintage_year","String",""+vintage));
+			    
+
+			    double avgRating = this.rs.getDouble("avg_rating");
+			    newEntry.add(new Field("avg_rating","double",""+avgRating));
+			    
+			    int numRatings = this.rs.getInt("num_ratings");
+			    newEntry.add(new Field("num_ratings","int",""+numRatings));
+			    
+			    rep.addEntry(newEntry);
+			}
+			res = rep.generate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+		return res;
 	}
 	
 }
