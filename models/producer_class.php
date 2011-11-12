@@ -70,7 +70,7 @@ class Producer
 			else
 			{
 				$stmt->close();
-				$this->region_id = -1;
+				$this->producer_id = -1;
 				return false;
 			}
 		}
