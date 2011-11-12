@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	window.alert("jQuery loaded");
 	// Add rating combo behaviour
 	$('select[name*="your_rating"]').bind('change', function(event)
 		{
