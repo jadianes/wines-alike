@@ -48,11 +48,11 @@ class api implements IController
 		}
 
 		// get the ratings this user has entered, or all of them if not user specified
-		$ratings =& new Ratings();
+		$ratings = new Ratings();
 		if ($user_manager->check_valid_user()) {
-			$rating_array = $ratings->get_latest_ratings($user_manager->get_current_user());
+			$rating_array = $ratings->get_latest_ratings($user_manager->get_current_user(),16);
 		} else {
-			$rating_array = $ratings->get_latest_ratings();
+			$rating_array = $ratings->get_latest_ratings('',4);
 		}
 		echo (json_encode($rating_array));
 	}
