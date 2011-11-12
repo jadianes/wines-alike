@@ -34,9 +34,12 @@ class actions implements IController
 		  $passwd = $_POST['passwd'];
 		  try
 		  {
-		    $user_manager->login_exists($email, $passwd);  
-		    // if they are in the database register the user id
-		    $user_manager->register_valid_user($email);
+		    if ($user_manager->login_exists($email, $passwd))
+			{	
+				// if they are in the database register the user id
+			    $user_manager->register_valid_user($email);
+			}  
+		    
 		  }
 		  catch(Exception $e) {
 			$smarty->assign('sitename', WA_WEBSITE_NAME);
