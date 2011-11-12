@@ -45,7 +45,7 @@ function create_database()
 	$query .= "CREATE TABLE types (
 		  		type_id int not null auto_increment primary key,
 		  		type_name varchar(100) not null,
-		  		subtype varchar(100),
+		  		subtype varchar(100)
 				);";				
 	$query .= "DROP TABLE IF EXISTS regions;";
 	$query .= "CREATE TABLE regions (
