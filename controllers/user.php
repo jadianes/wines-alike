@@ -130,7 +130,8 @@ class useractions implements IController
 	{
 		  $user_manager = new UserManager();
 		  $smarty = new Smarty_WinesAlike();
-
+ini_set('xdebug.collect_params', '3');
+ini_set('xdebug.show_local_vars', true);
 		  //create short variable names
 		  $email=$_POST['email'];
 		  $username=$_POST['username'];
@@ -183,19 +184,25 @@ class useractions implements IController
 				$smarty->assign('message', 'Your registration was successful.  Go to the <a href="/">members</a> page to start rating wines!');
 				$smarty->display('system_message.tpl');
 			}
-			else
-			{
-				throw new Exception('e-mail address already used');
+				else
+				{
+					$smarty->caching=0;
+				    $smarty->assign('sitename', WA_WEBSITE_NAME);
+				    $smarty->assign('slogan', 'Trust your taste');
+					$smarty->assign('message', 'Sorry, email already used. Please, go back and try again.');
+					$smarty->display('system_message.tpl');
+				    exit;
+				}
 			}
-		}
-		catch (Exception $e)
-		{
-		    $smarty->assign('sitename', WA_WEBSITE_NAME);
-		    $smarty->assign('slogan', 'Trust your taste');
-			$smarty->assign('message', 'Sorry, could not register. Please go back and try again.');
-			$smarty->display('system_message.tpl');
-		    exit;
-		}
+			catch (Exception $e)
+			{
+				$smarty->caching=0;
+			    $smarty->assign('sitename', WA_WEBSITE_NAME);
+			    $smarty->assign('slogan', 'Trust your taste');
+				$smarty->assign('message', 'Sorry, could not register. Please go back and try again.');
+				$smarty->display('system_message.tpl');
+			    exit;
+			}
 	}
 	
 	/**
