@@ -108,6 +108,7 @@ catch (Exception $ex)
 	$smarty->assign('message', $ex->getMessage());
 }
 
+$smarty->caching = 0;
 $smarty->display('install.tpl');
 	
 ?>
