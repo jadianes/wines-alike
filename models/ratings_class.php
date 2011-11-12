@@ -150,41 +150,41 @@ class Ratings
 	// If they have given similar ratings to coincident wines its likely
 	// that they will agree in other unrated (by one of them) wines as well  
 	{
+		$discrepances = array();
 		// First, get all the wines rated by this user
-		$all_wines = $this->conn->query("
-					SELECT ratings.wine_id
+		$user_ratings = $this->conn->query("
+					SELECT ratings.wine_id, ratings.rating
 					FROM users, ratings
 					WHERE users.email='$email' AND ratings.user_id=users.user_id
 		");
 		
-		// Second, iterate thorough all the wines and build the discrepance list
-		for ($i = 1; $wine = $all_wines->fetch_object(); ++$i) 
+		// Second, iterate thorough all the user wines and build the discrepance list
+		for ($i = 1; $user_rating = $user_ratings->fetch_object(); ++$i) 
 		{
-			// Get all users that rated this wine
-			$wineid = $wine->wine_id;
-			$user_ratings = $this->conn->query("
+			// Get all other ratings for this wine
+			$wineid = $user_rating->wine_id;
+			$ratings = $this->conn->query("
 				SELECT ratings.user_id, ratings.rating 
 				FROM users, ratings
 				WHERE ratings.wine_id='$wineid' AND users.email!='$email' AND ratings.user_id=users.user_id
 			");
-			if ($user_ratings && $user_ratings->num_rows>0) 
+			if ( isset($ratings) && ($ratings->num_rows>0) ) 
 			{
-				// Update discrepances with user ratings against this user rating
-				for ($j = 1; $rating = $user_ratings->fetch_object(); ++$j) 
+				// Update discrepances with ratings against this user rating
+				for ($j = 1; $rating = $ratings->fetch_object(); ++$j) 
 				{
-				//	echo ("        Calculating discrepances with user "+$rating->user_id);
 					$indexvar = $rating->user_id;
-					if (!$discrepances[$indexvar]) 
+					if ( isset($discrepances[$indexvar]) ) 
 					{
 						$discrepances[$indexvar] = 0;
 						$num_comps[$indexvar] = 0;
 					}
-					$discrepances[$indexvar] += abs(($rating->rating) - $wine->rating);
+					$discrepances[$indexvar] += abs(($rating->rating) - $user_rating->rating);
 					$num_comps[$indexvar]++;	
 				}
 			}
 		}
-		if ( isset ( $discrepances ) )
+		if ( count($discrepances) > 0 )
 		{ 
 		    foreach ($discrepances as $affine_user_id => $discrepance) 
 		    {
