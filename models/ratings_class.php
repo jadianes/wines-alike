@@ -255,7 +255,7 @@ class Ratings
 			$result = $this->conn->query( $query );
 		} else {
 			$query = "
-				SELECT producers.producer_name, wines.wine_name, wines.vintage_year, region.region_name, wines.avg_rating, wines.num_ratings, ratings.rating
+				SELECT producers.producer_name, wines.wine_name, wines.vintage_year, regions.region_name, wines.avg_rating, wines.num_ratings, ratings.rating
 				FROM producers, users, wines, ratings, regions
 				WHERE regions.region_id=wines.region_id AND producers.producer_id=wines.producer_id AND users.user_id=ratings.user_id AND ratings.wine_id=wines.wine_id
 				ORDER BY ratings.rating_date DESC
@@ -283,7 +283,7 @@ class Ratings
 	 */
 	function get_user_ratings($email) {
 		// Query database
-		$query = "SELECT producers.producer_name, wines.wine_name, wines.vintage_year, region.region_name, wines.avg_rating, wines.num_ratings, ratings.rating
+		$query = "SELECT producers.producer_name, wines.wine_name, wines.vintage_year, regions.region_name, wines.avg_rating, wines.num_ratings, ratings.rating
 			      FROM producers, wines, ratings, users, regions
 			      WHERE users.email='$email' AND ratings.user_id=users.user_id AND ratings.wine_id=wines.wine_id AND producers.producer_id=wines.producer_id AND regions.region_id=wines.region_id
 				  ORDER BY ratings.rating_date DESC";
