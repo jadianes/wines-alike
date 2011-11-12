@@ -174,7 +174,7 @@ class Ratings
 				for ($j = 1; $rating = $ratings->fetch_object(); ++$j) 
 				{
 					$indexvar = $rating->user_id;
-					if ( isset($discrepances[$indexvar]) ) 
+					if ( !isset($discrepances[$indexvar]) ) 
 					{
 						$discrepances[$indexvar] = 0;
 						$num_comps[$indexvar] = 0;
