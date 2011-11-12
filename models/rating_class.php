@@ -7,6 +7,7 @@ class Rating
 	var $user_id;
 	var $rating;
 	var $rating_date;
+	var $price;
 	
 	/* database connection */
 	var $conn;
@@ -67,7 +68,8 @@ class Rating
 				$this->wine_id,
 				$this->user_id,
 				$this->rating,
-				$this->rating_date
+				$this->rating_date,
+				$this->rating_price
 			);
 			if ($stmt->fetch())
 			{

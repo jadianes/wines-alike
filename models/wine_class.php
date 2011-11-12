@@ -6,6 +6,7 @@ class Wine
 {
 	var $wine_id = -1;
 	var $wine_name;
+	var $type_id;
 	var $region_id;
 	var $vintage_year;
 	var $producer_id;
