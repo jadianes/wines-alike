@@ -116,9 +116,6 @@ class actions implements IController
 
 		if ($user_manager->check_valid_user()) 
 		{
-			echo "<p>Valid user checked</p>";
-			echo "<p>Valid user checked</p>";
-			echo "<p>Valid user checked</p>";
 			try 
 			{
 			    if (!filled_out($_POST)) // We must change this for something more apropriate
