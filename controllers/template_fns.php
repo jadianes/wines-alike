@@ -87,7 +87,7 @@ function display_suggestions() {
   	$smarty->assign('username', $user_manager->get_username_by_email($user_manager->get_current_user()));
   	// show user ratings
   	$rating_array = $ratings->find_suggestions( $user_manager->get_current_user() );
-  	if ( count($rating_array) == 0 ) $rating_array = $ratings->get_latest_ratings( $user_manager->get_current_user() );
+  	if ( count($rating_array) == 0 ) $rating_array = $ratings->get_latest_ratings( $user_manager->get_current_user(), 16 );
   	$smarty->assign( 'ratings', $rating_array );
   	$smarty->assign( 'ratings_title', 'Suggestions...');
   	$smarty->assign('rating_options', 
