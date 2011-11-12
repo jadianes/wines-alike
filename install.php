@@ -9,8 +9,7 @@ function create_database()
 	/* check connection */
 	if (mysqli_connect_errno())
 	{ // return proper errors here with mysqli_connect_error
-		echo('connection error');
-		return FALSE;
+		throw new Exception("DB connection error");
 	}
 	
 	$query = "DROP TABLE IF EXISTS users;";
@@ -84,23 +83,29 @@ function create_database()
 	/* execute multi query */
 	if ( $mysqli->multi_query($query) )
 	{
-		return TRUE;
+		/* close connection */
+		$mysqli->close();
 	}
 	else
 	{ // notify errors (e.g. themdatabase exists...
-		return FALSE;
+		/* close connection */
+		$mysqli->close();
+		throw new Exception("DB query error");
 	}
-	/* close connection */
-	$mysqli->close();
+
 }
 
 $smarty = new Smarty_WinesAlike();
 $smarty->assign('version','0.1b');
 
-if (create_database()) {
+try
+{
+	create_database();
 	$smarty->assign('message','WinesAlike installation successful.');
-} else {
-	$smarty->assign('message','WinesAlike installation errors...');
+}
+catch (Exception ex)
+{
+	$smarty->assign('message', ex.getMessage());
 }
 
 $smarty->display('install.tpl');
