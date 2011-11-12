@@ -68,17 +68,35 @@ class api implements IController
 		$user_manager = new UserManager();
 		$smarty = new Smarty_WinesAlike();
 
-		if ($user_manager->check_valid_user()) 
+		if (isset($_POST['email']) && isset($_POST['passwd']))
+		// they have just tried logging in
 		{
-			display_user_ratings();
-		} 
-		else 
-		{
-		  $smarty->assign('sitename', WA_WEBSITE_NAME);
-		  $smarty->assign('slogan', 'Trust your taste');
-		  $smarty->assign('message', 'Sorry, you must be a member to see this page.');
-		  $smarty->display('system_message.tpl');
-		}		
+		  	//create short variable names
+		  	$email = $_POST['email'];
+		  	$passwd = $_POST['passwd'];
+		  	try
+		  	{
+				if ($user_manager->login_exists($email, $passwd))
+				{
+			    	// if they are in the database register the user id
+			    	$user_manager->register_valid_user($email);				
+				}
+		  	}
+		  	catch(Exception $e) 
+			{
+				//echo (json_encode(new array());
+				exit;
+		  	}      
+		}
+
+		// get the ratings this user has entered, or all of them if not user specified
+		$ratings = new Ratings();
+		if ($user_manager->check_valid_user()) {
+			$rating_array = $ratings->get_user_ratings($user_manager->get_current_user());
+		} else {
+			$rating_array = array();
+		}
+		echo (json_encode($rating_array));
 	}
 	
 	/**
@@ -89,20 +107,43 @@ class api implements IController
 	 **/
 	public function suggestions()
 	{
-		$user_manager = new UserManager();
-		$smarty = new Smarty_WinesAlike();
 
-		if ($user_manager->check_valid_user()) 
-		{
-			display_suggestions();
-		} 
-		else 
-		{
-		  $smarty->assign('sitename', WA_WEBSITE_NAME);
-		  $smarty->assign('slogan', 'Trust your taste');
-		  $smarty->assign('message', 'Sorry, you must be a member to see this page.');
-		  $smarty->display('system_message.tpl');
-		}
+			$user_manager = new UserManager();
+			$smarty = new Smarty_WinesAlike();
+
+			if (isset($_POST['email']) && isset($_POST['passwd']))
+			// they have just tried logging in
+			{
+			  	//create short variable names
+			  	$email = $_POST['email'];
+			  	$passwd = $_POST['passwd'];
+			  	try
+			  	{
+					if ($user_manager->login_exists($email, $passwd))
+					{
+				    	// if they are in the database register the user id
+				    	$user_manager->register_valid_user($email);				
+					}
+			  	}
+			  	catch(Exception $e) 
+				{
+					//echo (json_encode(new array());
+					exit;
+			  	}      
+			}
+
+			// get the ratings this user has entered, or all of them if not user specified
+			$ratings = new Ratings();
+			if ($user_manager->check_valid_user()) {
+				$rating_array = $ratings->find_suggestions($user_manager->get_current_user());
+				if (count($rating_array) == 0) 
+				{
+					$rating_array = $ratings->get_latest_ratings($user_manager->get_current_user(),16);
+				}
+			} else {
+				$rating_array = array();
+			}
+			echo (json_encode($rating_array));
 	}
 	
 	
