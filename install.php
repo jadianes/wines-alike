@@ -103,9 +103,9 @@ try
 	create_database();
 	$smarty->assign('message','WinesAlike installation successful.');
 }
-catch (Exception ex)
+catch (Exception $ex)
 {
-	$smarty->assign('message', ex.getMessage());
+	$smarty->assign('message', $ex->getMessage());
 }
 
 $smarty->display('install.tpl');
