@@ -265,7 +265,7 @@ class Ratings
 		}
 		
 		if (!$result) {
-			return false;
+			return array();
 		} else {
 			// create an array of ratings 
 			$rating_array = array();
@@ -291,7 +291,7 @@ class Ratings
 		
 		// Return result
 		if (!$result) {
-    		return false;
+    		return array();
 		} else {
 			// Create an array of ratings 
 			$rating_array = array();
