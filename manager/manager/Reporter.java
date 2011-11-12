@@ -9,4 +9,5 @@ public class Reporter {
 		theTask = new ReporterTask(user, password, database, host, table);
 		theTask.start();
 	}
+	
 }

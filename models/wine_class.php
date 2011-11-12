@@ -6,7 +6,7 @@ class Wine
 {
 	var $wine_id = -1;
 	var $wine_name;
-	var $region;
+	var $region_id;
 	var $vintage_year;
 	var $producer_id;
 	var $avg_rating;
@@ -37,7 +37,7 @@ class Wine
 			$stmt->bind_result(
 				$this->wine_id, 
 				$this->wine_name,
-				$this->region,
+				$this->region_id,
 		 		$this->vintage_year,
 				$this->producer_id,
 				$this->avg_rating,
@@ -60,21 +60,21 @@ class Wine
 		}
 	}
 	
-	function load($wine_name, $producer_id, $region, $vintage_year) 
+	function load($wine_name, $producer_id, $region_id, $vintage_year) 
 	{
 		if ($stmt = $this->conn->prepare("
 			SELECT * FROM wines
             WHERE wine_name=?
             AND producer_id=?
-            AND region=?
+            AND region_id=?
             AND vintage_year=?"))
         {
-        	$stmt->bind_param( 'siss', $wine_name, $producer_id, $region, $vintage_year );
+        	$stmt->bind_param( 'siis', $wine_name, $producer_id, $region_id, $vintage_year );
 			$stmt->execute();
 			$stmt->bind_result(
 				$this->wine_id, 
 				$this->wine_name,
-				$this->region,
+				$this->region_id,
 		 		$this->vintage_year,
 				$this->producer_id,
 				$this->avg_rating,
@@ -103,19 +103,19 @@ class Wine
 		// if a new id is not assigned, this will be a new wine
 		{
 			if ( $stmt = $this->conn->prepare("
-				INSERT INTO wines (wine_name, region, vintage_year, producer_id, avg_rating, num_ratings)
+				INSERT INTO wines (wine_name, region_id, vintage_year, producer_id, avg_rating, num_ratings)
             	VALUES (?, ?, ?, ?, ?, ?)") )
         	{
         		$stmt->bind_param( 
-        			'sssidi', 
+        			'sisidi', 
         			$this->wine_name, 
-        			$this->region, 
+        			$this->region_id, 
         			$this->vintage_year, 
         			$this->producer_id, 
         			$this->avg_rating, 
         			$this->num_ratings);
 				$stmt->execute();
-				return $this->load($this->wine_name, $this->producer_id, $this->region, $this->vintage_year);
+				return $this->load($this->wine_name, $this->producer_id, $this->region_id, $this->vintage_year);
 			}
 			else
 			{
@@ -127,10 +127,10 @@ class Wine
 		{
 			if ( $stmt = $this->conn->prepare("
 				UPDATE wines 
-				SET wine_name=?, region=?, vintage_year=?, producer_id=?, avg_rating=?, num_ratings=?
+				SET wine_name=?, region_id=?, vintage_year=?, producer_id=?, avg_rating=?, num_ratings=?
 				WHERE wine_id=?") )
         	{
-        		$stmt->bind_param( 'ssiidii', $this->wine_name, $this->region, $this->vintage_year, $this->producer_id, $this->avg_rating, $this->num_ratings, $this->wine_id);
+        		$stmt->bind_param( 'sisidii', $this->wine_name, $this->region_id, $this->vintage_year, $this->producer_id, $this->avg_rating, $this->num_ratings, $this->wine_id);
 				$stmt->execute();
 				return TRUE;
 			}

@@ -32,15 +32,21 @@ function create_database()
 	$query .= "CREATE TABLE wines (
   				wine_id int not null auto_increment primary key,
   				wine_name varchar(200),
-  				region varchar(60) not null,
-  				vintage_year varchar(30),
+				type_id int not null references types(type_id),
+  				region_id int not null references regions(region_id),
   				producer_id int not null references producers(producer_id),
+  				vintage_year varchar(30),
   				avg_rating double not null,
   				num_ratings int not null,
   				index (wine_name),
-  				index (region),
   				index (vintage_year)
 				);";
+	$query .= "DROP TABLE IF EXISTS types;";
+	$query .= "CREATE TABLE types (
+		  		type_id int not null auto_increment primary key,
+		  		type_name varchar(100) not null,
+		  		subtype varchar(100),
+				);";				
 	$query .= "DROP TABLE IF EXISTS regions;";
 	$query .= "CREATE TABLE regions (
   				region_id int not null auto_increment primary key,
@@ -55,7 +61,8 @@ function create_database()
 				wine_id int not null references wines(wine_id),
 				user_id int not null references users(user_id),
 				rating double not null,
-				rating_date timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
+				rating_date timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+				price double
 				);";
 	// a comment review about a wine allowed to privileged users
 	$query .= "DROP TABLE IF EXISTS comments;";
