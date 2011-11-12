@@ -93,7 +93,6 @@ class Region
 		if ( $this->region_id == -1 )
 		// if a new id is not assigned, this will be a new wine
 		{
-			echo "<p>Trying to save region ".$this->region_name."</p>";
 			if ( $stmt = $this->conn->prepare("
 				INSERT INTO regions (region_name, country)
             	VALUES (?, ?)") )

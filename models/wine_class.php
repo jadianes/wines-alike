@@ -74,6 +74,7 @@ class Wine
 			$stmt->bind_result(
 				$this->wine_id, 
 				$this->wine_name,
+				$this->type_id,
 				$this->region_id,
 		 		$this->vintage_year,
 				$this->producer_id,
