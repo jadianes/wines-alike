@@ -2,6 +2,7 @@
 
 require_once('actions.php');
 require_once('user.php');
+require_once('api.php');
 require_once('reports.php');
 require_once('company.php');
 
