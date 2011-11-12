@@ -23,7 +23,7 @@
   <hr>
   <div class="row">
   {/if}
-  <span class="span4">
+  <span class="span4 rating">
     <h4>{$rating->producer_name}, {$rating->wine_name} {$rating->vintage_year}</h4>
     <p>{$rating->region_name}</p>
     <p>Average rating: {$rating->avg_rating|truncate:4:""} ({$rating->num_ratings} ratings)</p>

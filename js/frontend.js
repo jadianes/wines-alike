@@ -1,10 +1,14 @@
 $(document).ready(function() {
-	window.alert("jQuery loaded");
 	// Add rating combo behaviour
 	$('select[name*="your_rating"]').bind('change', function(event)
 		{
-			window.alert("al");
 			/*
+			var wine_name = $(this);
+			var producer = ;
+			var region = ;
+			var vintage = ;
+			var rating = $(this).find('option[selected="selected"]').value();
+			
 			$.post('actions/add_rating',
 				{wine_name:$(), 
 				 producer:$(), 
