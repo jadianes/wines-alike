@@ -185,7 +185,7 @@ class useractions implements IController
 			}
 			else
 			{
-				throw new Exception('e-mail address already used')
+				throw new Exception('e-mail address already used');
 			}
 		}
 		catch (Exception $e)
