@@ -25,7 +25,7 @@
   {/if}
   <span class="span4">
     <h4>{$rating->producer_name}, {$rating->wine_name} {$rating->vintage_year}</h4>
-    <p>{$rating->region}</p>
+    <p>{$rating->region_name}</p>
     <p>Average rating: {$rating->avg_rating|truncate:4:""} ({$rating->num_ratings} ratings)</p>
     <p>Your rating 
     {html_options name='your_rating$rating@index' options=$rating_options selected=0}</p>
