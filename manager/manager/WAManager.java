@@ -12,7 +12,7 @@ public abstract class WAManager
 	String password;
 	String database;
 	String host;
-	ResultSet rs;
+	public ResultSet rs;
 	Connection conn;
 	Statement stmt;
 	

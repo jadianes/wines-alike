@@ -7,6 +7,14 @@
 <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
 <link rel="stylesheet" href="css/reporter.css">
 
+<%@ page import="manager.ManagerConfig" %>
+<%@ page import="manager.WAManagerFactory" %>
+<%@ page import="manager.WAManager" %>
+<%@ page import="reports.HTMLEntryFactory" %>
+<%@ page import="reports.HTMLEntry" %>
+<%@ page import="reports.UserHTMLEntry" %>
+<%@ page import="java.sql.ResultSet" %>
+
 <title>WinesAlike Reporter tool</title>
 
 </head>
@@ -39,7 +47,17 @@
           <div class="span10">
             <h2>Latest entries</h2>
             <div class="row">
-            <% for ( int i = 0; i < 10; i++ ) 
+            <% 		
+    			WAManager manager = WAManagerFactory.getWAManager(    				
+    					ManagerConfig.user, 
+        				ManagerConfig.password, 
+        				ManagerConfig.database, 
+        				ManagerConfig.host,
+        				"users");
+            HTMLEntry entry = HTMLEntryFactory.getHTMLEntry("user");
+    			ResultSet rs = manager.rs;
+    			int i=0;
+            while (rs.next()) 
             {       		
 				if (i%3 == 0) { // end row and start new one
 					%>
@@ -49,10 +67,10 @@
 					<%
 				}%>
 			<span class="span3 entry">
-    				<h4>Entry</h4>
-    				<p><%= i+1 %></p>
+    				<%= entry.toHTML(rs)  %>
   			</span>
         		<%
+        		i++;
     			}%>
     			</div>
           </div> <!-- Span 10  -->
