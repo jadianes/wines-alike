@@ -18,7 +18,7 @@
 <hr>
 <div class="row">
 {foreach $ratings as $rating}
-  <span id="wine_rating" class="span4 rating">
+  <span class="span4 wine_rating">
     <h5><span id="producer">{$rating->producer_name}</span> <span id="name">{$rating->wine_name}</span> 
 		<span id="vintage">{$rating->vintage_year}</span>
 	</h5>
