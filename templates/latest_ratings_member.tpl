@@ -18,17 +18,19 @@
 <hr>
 <div class="row">
 {foreach $ratings as $rating}
-  {if $rating@iteration is div by 5}
-  </div>
-  <hr>
-  <div class="row">
-  {/if}
-  <span class="span4 rating">
-    <h4>{$rating->producer_name}, {$rating->wine_name} {$rating->vintage_year}</h4>
-    <p>{$rating->region_name}</p>
-    <p>Average rating: {$rating->avg_rating|truncate:4:""} ({$rating->num_ratings} ratings)</p>
-    <p>Your rating 
-    {html_options name='your_rating$rating@index' options=$rating_options selected=0}</p>
+  <span id="wine_rating" class="span4 rating">
+    <h5><span id="producer">{$rating->producer_name}</span> <span id="name">{$rating->wine_name}</span> 
+		<span id="vintage">{$rating->vintage_year}</span>
+	</h5>
+    <p><span id="region">{$rating->region_name}</span></p>
+	<p>Rating: {$rating->rating} (by {$rating->user_name})</p>
+    <p>Average: {$rating->avg_rating|truncate:4:""} ({$rating->num_ratings} ratings)</p>
+	<p>Your rating</p>
+	{if isset($rating->user_rating)}
+    	{html_options name='your_rating' options=$rating_options selected=$rating->user_rating}
+	{else}
+		{html_options name='your_rating' options=$rating_options selected=0}
+	{/if}
   </span>
 {/foreach}
 </div>

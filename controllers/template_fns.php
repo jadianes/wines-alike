@@ -38,7 +38,8 @@ function display_latest_ratings_member()
 	
 	$smarty->caching = 0;
   	$smarty->assign('sitename', WA_WEBSITE_NAME);
-  	$smarty->assign('slogan', 'Trust your taste');  
+  	$smarty->assign('slogan', 'Trust your taste');
+  	$smarty->assign('email', $user_manager->get_current_user());
   	$smarty->assign('username', $user_manager->get_username_by_email($user_manager->get_current_user()));
   	// show latest ratings
   	$ratings = new Ratings();

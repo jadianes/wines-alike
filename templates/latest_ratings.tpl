@@ -21,16 +21,14 @@
 <hr>
 <div class="row">
 {foreach $ratings as $rating}
-  {if $rating@iteration is div by 5}
-  </div>
-  <hr>
-  <div class="row">
-  {/if}
-  <span class="span4">
-    <h4>{$rating->producer_name}, {$rating->wine_name} {$rating->vintage_year}</h4>
-    <p>{$rating->region_name}</p>
-    <p>Average rating: {$rating->avg_rating|truncate:4:""} ({$rating->num_ratings} ratings)</p>
-  </span>
+	<span id="wine_rating" class="span4 rating">
+		<h5><span id="producer">{$rating->producer_name}</span> <span id="name">{$rating->wine_name}</span> 
+			<span id="vintage">{$rating->vintage_year}</span>
+		</h5>
+  		<p><span id="region">{$rating->region_name}</span></p>
+		<p>Rating: {$rating->rating} (by {$rating->user_name})</p>
+  		<p>Average: {$rating->avg_rating|truncate:4:""} ({$rating->num_ratings} ratings)</p>
+</span>
 {/foreach}
 </div>
 

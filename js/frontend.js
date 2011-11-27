@@ -1,22 +1,20 @@
 $(document).ready(function() {
 	// Add rating combo behaviour
-	$('select[name*="your_rating"]').bind('change', function(event)
+	$('#wine_rating select').bind('change', function(event)
 		{
-			/*
-			var wine_name = $(this);
-			var producer = ;
-			var region = ;
-			var vintage = ;
-			var rating = $(this).find('option[selected="selected"]').value();
-			
-			$.post('actions/add_rating',
-				{wine_name:$(), 
-				 producer:$(), 
-				 region:$(), 
-				 vintage_year:$(),
-				 rating:$()
+			var name = $(this).parent().find('#name').text();
+			var producer = $(this).parent().find('#producer').text();
+			var region = $(this).parent().find('#region').text();
+			var vintage = $(this).parent().find('#vintage').text();
+			var rating = $(this).val();
+			$.post('http://winesalike-test/actions/add_rating',
+				{wine_name: name, 
+				 producer: producer, 
+				 region: region, 
+				 vintage_year: vintage,
+				 rating: rating
 				 }
-			);*/
+			); /* do something when succeed? -> update other combos in the list... */
 		}
 	);
 });

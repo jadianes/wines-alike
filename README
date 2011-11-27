@@ -19,14 +19,9 @@ Test cases are based in PHPUnit, and can be found in folder /tests
 == API ==
 The folder /API contains controllers (following a similar schema to html controllers) that return JSON objects for different actions. It can be used as REST services (e.g. in mobile clients).
 
-== MANAGER TOOL ==
-The framework includes a Manager tool implemented in Java and using JDBC to access the MySQL tables used by WinesAlike.
-
-The tool allows generating XML reports from database queries using JAXB.
-
-It also provides an HTTP interface through Servlets that allows generating/deleting new reports remotely (POAT NS DELETE) an also retrieve them (GET).
-
 == INSTALLATION ==
 The script install.php creates all the MySQL tables containing the model data. This script uses the configuration parameters defined in 'models/config.php'.
 
 Wines-alike uses Smarty template engine to render html views. Therefore Smarty has to be installed. The installer also uses Smarty. It can be found in http://www.smarty.net.
+
+The framework also depends on jQuery. The version used is included in the folder /js.

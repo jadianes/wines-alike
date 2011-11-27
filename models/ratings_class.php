@@ -200,19 +200,27 @@ class Ratings
 		    {
 			    // for each user, look for its highest rated wines not rated by this user
 			    $suggestions_result = $this->conn->query("
-							   SELECT producers.producer_name, wines.wine_name, wines.vintage_year, regions.region_name, wines.avg_rating, wines.num_ratings, ratings.rating, users.email
-							   FROM users, producers, wines, ratings, regions
-							   WHERE users.user_id='$affine_user_id'
-							    AND ratings.user_id=users.user_id
-							    AND ratings.wine_id NOT IN (
-									SELECT ratings.wine_id FROM users, ratings
-									WHERE users.email='$email' AND users.user_id=ratings.user_id
-								)
-								AND ratings.wine_id=wines.wine_id 
-							    AND producers.producer_id=wines.producer_id
-								AND regions.region_id=wines.region_id
-							   ORDER BY ratings.rating
-							   LIMIT 0, 20
+					SELECT producers.producer_name, 
+						wines.wine_name, wines.vintage_year, 
+						regions.region_name, 
+						wines.avg_rating, 
+						wines.num_ratings, 
+						ratings.rating, 
+						users.email
+					FROM users, producers, wines, ratings, regions
+					WHERE users.user_id='$affine_user_id'
+						AND ratings.user_id=users.user_id
+						AND ratings.wine_id NOT IN (
+							SELECT ratings.wine_id 
+							FROM users, ratings
+							WHERE users.email='$email' 
+								AND users.user_id=ratings.user_id
+						)
+						AND ratings.wine_id=wines.wine_id 
+						AND producers.producer_id=wines.producer_id
+						AND regions.region_id=wines.region_id
+					ORDER BY ratings.rating
+					LIMIT 0, 20
 			    ");		
 			
 			    if ($suggestions_result && $suggestions_result->num_rows>0) 
@@ -239,30 +247,51 @@ class Ratings
 	}
  	
 	/*
-	 * Get latest ratings excluding ratings of a specific $username
-	 * if defined
+	 * Get latest ratings 
 	 */
 	function get_latest_ratings($email,$count) {
 		if ( ! isset($count) ) $count = 12;
-		if ( isset($email) && ($email != '') ) {
-			$query = "
-				SELECT producers.producer_name, wines.wine_name, wines.vintage_year, regions.region_name, wines.avg_rating, wines.num_ratings, ratings.rating
+		$query = "
+			SELECT allr.producer_name, 
+				allr.wine_name, 
+				allr.vintage_year, 
+				allr.region_name, 
+				allr.avg_rating, 
+				allr.num_ratings, 
+				allr.rating, allr.email, 
+				allr.user_name, 
+				userr.rating AS user_rating
+			FROM (
+				SELECT producers.producer_name, 
+					wines.wine_name, 
+					wines.wine_id,
+					wines.vintage_year, 
+					regions.region_name, 
+					wines.avg_rating, 
+					wines.num_ratings, 
+					ratings.rating, 
+					users.email, 
+					users.user_name
 				FROM producers, users, wines, ratings, regions
-				WHERE regions.region_id=wines.region_id AND producers.producer_id=wines.producer_id AND users.email='$email' AND ratings.user_id!=users.user_id AND ratings.wine_id=wines.wine_id
+				WHERE regions.region_id=wines.region_id 
+					AND producers.producer_id=wines.producer_id 
+					AND users.user_id=ratings.user_id 
+					AND ratings.wine_id=wines.wine_id
 				ORDER BY ratings.rating_date DESC
 				LIMIT 0, $count
-			";
-			$result = $this->conn->query( $query );
-		} else {
-			$query = "
-				SELECT producers.producer_name, wines.wine_name, wines.vintage_year, regions.region_name, wines.avg_rating, wines.num_ratings, ratings.rating
-				FROM producers, users, wines, ratings, regions
-				WHERE regions.region_id=wines.region_id AND producers.producer_id=wines.producer_id AND users.user_id=ratings.user_id AND ratings.wine_id=wines.wine_id
-				ORDER BY ratings.rating_date DESC
-				LIMIT 0, $count
-			";
-			$result = $this->conn->query( $query );
-		}
+			) allr 
+			LEFT JOIN ( 
+				SELECT ratings.rating, wines.wine_id
+				FROM producers, wines, ratings, users, regions
+				WHERE users.email='$email' 
+					AND ratings.user_id=users.user_id 
+					AND ratings.wine_id=wines.wine_id 
+					AND producers.producer_id=wines.producer_id 
+					AND regions.region_id=wines.region_id					
+			) userr 
+			ON allr.wine_id=userr.wine_id
+		";
+		$result = $this->conn->query( $query );
 		
 		if (!$result) {
 			return array();
@@ -283,10 +312,20 @@ class Ratings
 	 */
 	function get_user_ratings($email) {
 		// Query database
-		$query = "SELECT producers.producer_name, wines.wine_name, wines.vintage_year, regions.region_name, wines.avg_rating, wines.num_ratings, ratings.rating
-			      FROM producers, wines, ratings, users, regions
-			      WHERE users.email='$email' AND ratings.user_id=users.user_id AND ratings.wine_id=wines.wine_id AND producers.producer_id=wines.producer_id AND regions.region_id=wines.region_id
-				  ORDER BY ratings.rating_date DESC";
+		$query = "
+				SELECT producers.producer_name, 
+					wines.wine_name, 
+					wines.vintage_year, 
+					regions.region_name, 
+					wines.avg_rating, 
+					wines.num_ratings, 
+					ratings.rating
+				FROM producers, wines, ratings, users, regions
+				WHERE users.email='$email' 
+					AND ratings.user_id=users.user_id 
+					AND ratings.wine_id=wines.wine_id 
+					AND producers.producer_id=wines.producer_id AND regions.region_id=wines.region_id
+				ORDER BY ratings.rating_date DESC";
 		$result = $this->conn->query($query);
 		
 		// Return result
