@@ -7,7 +7,8 @@ $(document).ready(function() {
 			var region = $(this).parent().find('#region').text();
 			var vintage = $(this).parent().find('#vintage').text();
 			var rating = $(this).val();
-			$.post('http://winesalike-test/actions/add_rating',
+			var base_url = <?php require_once('models/config.php'); out.print('WA_WEBSITE_URL'); ?>;
+			$.post(base_url+'/actions/add_rating',
 				{wine_name: name, 
 				 producer: producer, 
 				 region: region, 
