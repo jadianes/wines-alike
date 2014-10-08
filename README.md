@@ -1,3 +1,6 @@
+Winesalike
+==========
+
 WinesAlike is a PHP (together with Java for admin tasks) framework for deploying wine affinity websites.
 
 ## Model-View-Controller Architecture  
